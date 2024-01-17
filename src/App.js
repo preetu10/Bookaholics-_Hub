@@ -18,6 +18,19 @@ import ExchangeForm from './pages/userRoutes/ExchangeForm';
 import AddBorrow from './pages/userRoutes/AddBorrow';
 import AddExchange from './pages/userRoutes/AddExchange';
 import OrderPlaceForm from './pages/userRoutes/OrderPlaceForm';
+import BorrowForm from './pages/userRoutes/BorrowForm';
+import ExchangeRequests from './pages/userRoutes/ExchangeRequests';
+import BorrowRequests from './pages/userRoutes/BorrowRequests';
+import OrderRequests from './pages/userRoutes/OrderRequests';
+import MySellPosts from './components/MySellPosts';
+import MyBorrowPosts from './components/MyBorrowPosts';
+import MyExchangePosts from './components/MyExchangePosts';
+import MyPurchase from './pages/userRoutes/MyPurchase';
+import MyBorrowedBooks from './pages/userRoutes/MyBorrowedBooks';
+import MyExchangedBooks from './pages/userRoutes/MyExchangedBooks';
+import MySellRecords from './pages/userRoutes/MySellRecords';
+import MyLendRecords from './pages/userRoutes/MyLendRecords';
+import MyExchangeRecords from './pages/userRoutes/MyExchangeRecords';
 function App() {
   return (
     <UserProvider>
@@ -35,10 +48,24 @@ function App() {
         <Route path="borrow" element={<BorrowSection />} />
         <Route path="exchange" element={<ExchangeSection />} />
         <Route path="profile/:userId" element={<ProfileInfo />} />
-        <Route path="exchange-form" element={<ExchangeForm />} />
         <Route path="addborrow" element={<AddBorrow />} />
         <Route path="addexchange" element={<AddExchange />} />
-        <Route path="orderplace" element={<OrderPlaceForm />} />
+        <Route path="book-info/:sid" element={<OrderPlaceForm />} />
+        <Route path="borrow-book-info/:borrId" element={<BorrowForm />} />
+        <Route path="exchange-book-info/:ebId" element={<ExchangeForm />} />
+        <Route path="exchange-requests/:eEmail" element={<ExchangeRequests/>} />
+        <Route path="borrow-requests/:eEmail" element={<BorrowRequests/>} />
+        <Route path="order-requests/:eEmail" element={<OrderRequests/>} />
+        <Route path="my-sell-posts/:eEmail" element={<MySellPosts/>} />
+        <Route path="my-borrow-posts/:eEmail" element={<MyBorrowPosts/>} />
+        <Route path="my-exchange-posts/:eEmail" element={<MyExchangePosts/>} />
+        <Route path="my-purchase/:eEmail" element={<MyPurchase/>} />
+        <Route path="my-borrow/:eEmail" element={<MyBorrowedBooks/>} />
+        <Route path="my-exchange/:eEmail" element={<MyExchangedBooks/>} />
+        <Route path="my-sell-records/:eEmail" element={<MySellRecords/>} />
+        <Route path="my-lend-records/:eEmail" element={<MyLendRecords/>} />
+        <Route path="my-exchange-records/:eEmail" element={<MyExchangeRecords/>} />
+
       </Route>
     </Routes>
     </BrowserRouter>

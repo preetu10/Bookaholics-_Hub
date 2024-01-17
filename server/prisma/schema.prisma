@@ -39,20 +39,21 @@ model SellingBook {
   postAt DateTime @default(now())
   sold_by User @relation(fields: [soldBy_Email],references: [email])
   soldBy_Email String
-  order Order?
+  order Order[]
 }
 
 model Order {
   orderId Int @id @default(autoincrement())
-  status String @default("Pending")  //pending confirmed done
+  state String @default("Pending")  //pending confirmed 
   orderedAt DateTime @default(now())
   quantity Int 
   pickupPoint String
   total Int 
+  phone String
   takenBy User @relation(fields: [takenBy_Email],references: [email])
   takenBy_Email String
   sellbook SellingBook @relation(fields:[sbId],references: [sid])
-  sbId Int @unique
+  sbId Int 
 }
 
 model ExchangeableBook {
@@ -71,14 +72,16 @@ model ExchangeableBook {
   wishedBook String
   wishedBookAuthor String
   wishedBookEdition String
-  exchangeProcess ExchangeProcess?
+  exchangeProcess ExchangeProcess[]
 }
 
 model ExchangeProcess {
   epId Int @id @default(autoincrement())
   postAt DateTime  @default(now())
+  phone String
+  state String @default("Pending")
   exchangeId ExchangeableBook @relation(fields: [eId], references: [ebId])
-  eId Int @unique
+  eId Int 
   exchanger User @relation(fields: [exchangerEmail],references: [email])
   exchangerEmail String
 }
@@ -99,15 +102,16 @@ model BorrowableBook {
   pickupPoint String
   returnTime String
   paymentForBorrow Int
-  borrState String @default("Not Borrowed")
-  borrowProcess BorrowProcess?
+  borrowProcess BorrowProcess[]
 }
 
 model BorrowProcess {
   bpId Int @id @default(autoincrement())
-  borrrowsAt DateTime @default(now())
+  borrowsAt DateTime @default(now())
+  phone String
+  borrState String @default("Pending")
   borrowId BorrowableBook @relation(fields: [bbId], references: [borrId])
-  bbId Int @unique
+  bbId Int 
   borrower User @relation(fields: [borrowerEmail],references: [email])
   borrowerEmail String
 }

@@ -20,7 +20,7 @@ function Post({post={b_title:"This is default post title",b_authorname:"Author",
             {post.b_edition} Edition   ||  Number of Pages: {post.b_numOfPages}
             </h5>
             <h6>
-            Book ID: {post.bid}
+            Book ID: {post.sid}
             </h6>
             <h5>
             <Badge color= "info" >
@@ -31,7 +31,7 @@ function Post({post={b_title:"This is default post title",b_authorname:"Author",
                 {post.b_description}...
             </CardText>
             <div className='text-center'>
-              <Button href="/user/orderplace">Buy</Button>
+              <Button href={`/user/book-info/${post.sid}`}>Buy</Button>
             </div>
         </CardBody>
     </Card>

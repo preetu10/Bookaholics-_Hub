@@ -6,7 +6,7 @@ function MarketPlaceExchange() {
   const [posts,setPosts]=useState(null);
   
   useEffect(()=>{
-    //load all the borrow posts from server
+    //load all the exchange posts from server
     getExchangePosts().then((response)=>{
       console.log(response);
       setPosts(response);
@@ -23,7 +23,7 @@ function MarketPlaceExchange() {
           <Button color='primary' href="/user/addexchange">Add Books to Exchange</Button>
          {
            posts.map((post) => {
-             return <PostExchange post={post} key={post.bid} />
+             return <PostExchange post={post} key={post.ebId} />
           })
           
          }

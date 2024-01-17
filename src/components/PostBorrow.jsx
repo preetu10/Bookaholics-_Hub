@@ -31,7 +31,7 @@ function PostBorrow({post={b_title:"This is default post title",b_authorname:"Au
                 {post.b_description}...
             </CardText>
             <div className='text-center'>
-              <Button href="/services">Borrow</Button>
+              <Button href={`/user/borrow-book-info/${post.borrId}`}>Borrow</Button>
             </div>
         </CardBody>
     </Card>

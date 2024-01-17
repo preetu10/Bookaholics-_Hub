@@ -68,7 +68,7 @@
               </Nav>
               <Nav navbar>
               {
-                login &&  (
+                login && (user.role==="General") &&  (
                   <>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
@@ -91,8 +91,56 @@
                   </DropdownToggle>
                   <DropdownMenu >
                     <DropdownItem tag={ReactLink} to={`/user/profile/${user.id}`}>My Profile</DropdownItem>
-                    <DropdownItem tag={ReactLink} to="">My Books</DropdownItem>
-                    <DropdownItem tag={ReactLink} to="">My Orders</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/exchange-requests/${user.email}`}>Exchange Requests</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/borrow-requests/${user.email}`}>Borrow Requests</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/order-requests/${user.email}`}>Order Requests</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`}>My Sell Posts</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-borrow-posts/${user.email}`}>My Borrow Posts</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-exchange-posts/${user.email}`}>My Exchange Posts</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-purchase/${user.email}`}>My Purchase</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-borrow/${user.email}`}>My Borrowed Books</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-exchange/${user.email}`}>My Exchanged Books</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`}>My Sell Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-lend-records/${user.email}`}>My Lend Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-exchange-records/${user.email}`}>My Exchange Records</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>Reset</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                  <NavItem>
+                  <NavLink onClick={logout}>Log out</NavLink>
+                </NavItem>
+                </>
+                )
+              }
+                 {
+                login && (user.role==="Publisher") &&  (
+                  <>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Market Place
+                  </DropdownToggle>
+                  <DropdownMenu >
+                    <DropdownItem tag={ReactLink} to="/user/buysell">Buy-Sell Section</DropdownItem>
+                    <DropdownItem tag={ReactLink} to="/user/borrow">Borrow Section</DropdownItem>
+                    <DropdownItem tag={ReactLink} to="/user/exchange">Exchange Section</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>Reset</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                  {/* <NavItem>
+                  <NavLink tag={ReactLink} to={`/user/profile/${user.id}`}>{user.name}</NavLink>
+                </NavItem> */}
+                  <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    My Section
+                  </DropdownToggle>
+                  <DropdownMenu >
+                    <DropdownItem tag={ReactLink} to={`/user/profile/${user.id}`}>My Profile</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/order-requests/${user.email}`}>Order Requests</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`}>My Sell Posts</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`}>My Sell Records</DropdownItem>
+
                     <DropdownItem divider />
                     <DropdownItem>Reset</DropdownItem>
                   </DropdownMenu>

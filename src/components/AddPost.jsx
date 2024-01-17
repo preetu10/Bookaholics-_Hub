@@ -36,7 +36,7 @@ const handleReset=()=>{
 }
 const submitForm = (event)=>{
   event.preventDefault();
-console.log(data.category);
+    console.log(data.category);
   addSellPost(data).then((response)=>{
       toast.success("Post added successfully. "+response.b_title);
       setData({

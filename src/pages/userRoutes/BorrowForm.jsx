@@ -2,59 +2,60 @@ import React,{useContext,useEffect,useState} from 'react'
 import Base from '../../components/Base';
 import userContext from '../../context/userContext';
 import {Card, CardBody, Col, Row, CardHeader, Container, Form, FormGroup, Label, Input, Button, Table} from "reactstrap";
-import { getExchangeBook, exchangePlace } from '../../services/user-service';
+import { getBorrowBook, borrowPlace } from '../../services/user-service';
 import { useParams,useNavigate } from 'react-router-dom';
 import { toast} from 'react-toastify';
-const ExchangeForm=()=> {
+const BorrowForm=()=> {
   const object=useContext(userContext);
   const [book,setBook]=useState(null);
-  const {ebId} =useParams(); 
+  const {borrId} =useParams(); 
  
 
   useEffect(()=>{
-      getExchangeBook(ebId).then((response)=>{
+      getBorrowBook(borrId).then((response)=>{
         //console.log(response);
       setBook({...response})
       })
-  },[ebId])
+  },[borrId])
 
-  const [exchangeDetail,setExchangeDetail]=useState({
-    exchangerEmail:'',
+  const [borrowDetail,setBorrowDetail]=useState({
+    borrowerEmail:'',
     phone:'',
-    ebId:ebId,
+    borrId:borrId,
     
 })
 const navigate =useNavigate();
 const handleChange=(event,field)=>{
     let actualValue=event.target.value
-    setExchangeDetail({
-        ...exchangeDetail,
+    setBorrowDetail({
+        ...borrowDetail,
         [field]: actualValue
     })
 
 }
 const handleSubmit=(event)=>{
   event.preventDefault();
-  exchangePlace(exchangeDetail).then((response)=>{
+  borrowPlace(borrowDetail).then((response)=>{
     if(response.status===200){
       toast.success("The process is completed");
-      navigate("/user/exchange");
+      navigate("/user/borrow");
       }else{
           toast.error("Process Could Not Be Completed! Try Again later");
-          navigate("/user/exchange");
+          navigate("/user/borrow");
       }
-      setExchangeDetail({
-        exchangerEmail:'',
-         ebId:ebId,
+      setBorrowDetail({
+        borrowerEmail:'',
+        phone:'',
+         borrId:borrId,
       })
   }).catch((error)=>{
       console.log(error);
       toast.error("Something went wrong. Try again later.");
-      navigate("/user/exchange");
-      setExchangeDetail({
-        exchangerEmail:'',
-        ebId:ebId,
-        phone:''
+      navigate("/user/borrow");
+      setBorrowDetail({
+        borrowerEmail:'',
+        phone:'',
+        borrId:borrId,
       })
   })
 }
@@ -67,7 +68,7 @@ const handleSubmit=(event)=>{
         <Col sm={{size:8,offset:2}}>
         <Card color="dark" outline>
         <CardHeader>
-            <h3 className="text-center">Details of Exchanging Book</h3> 
+            <h3 className="text-center">Details of Borrowing Book</h3> 
             <p className="text-center">Please Fill Out Your Information Carefully</p>
         </CardHeader>
         <CardBody>
@@ -78,7 +79,7 @@ const handleSubmit=(event)=>{
                     <h6>Book ID:</h6>
                   </td>
                   <td>
-                    {ebId}
+                    {borrId}
                   </td>
                   </tr>
                   <tr>
@@ -123,7 +124,7 @@ const handleSubmit=(event)=>{
                   </tr>
                   <tr>
                   <td>
-                    <h6>Owner's Email:</h6>
+                    <h6>Lender Email:</h6>
                   </td>
                   <td>
                     {book.soldBy_Email}
@@ -131,29 +132,28 @@ const handleSubmit=(event)=>{
                   </tr>
                   <tr>
                   <td>
-                    <h6>The Book Owner Wants To Have:</h6>
+                    <h6>Place From Where Borrower Have To Pick the Book:</h6>
                   </td>
                   <td>
-                    {book.wishedBook}
+                    {book.pickupPoint}
                   </td>
                   </tr>
                   <tr>
                   <td>
-                    <h6>The Author Of The Book Owner Wants To Have:</h6>
+                    <h6>Duration Of Keeping The Book :</h6>
                   </td>
                   <td>
-                    {book.wishedBookAuthor}
+                    {book.returnTime}
                   </td>
                   </tr>
                   <tr>
                   <td>
-                    <h6>The Edition Of The Book Owner Wants To Have:</h6>
+                    <h6>The Amount Borrower Need to Pay:</h6>
                   </td>
                   <td>
-                    {book.wishedBookEdition}
+                    {book.paymentForBorrow}
                   </td>
                   </tr>
-                  
                 </tbody>
               </Table>
             <Form onSubmit={handleSubmit}>
@@ -163,7 +163,7 @@ const handleSubmit=(event)=>{
                     type="tel"
                     placeholder="Enter here"
                     id="phone"
-                    value={exchangeDetail.phone}
+                    value={borrowDetail.phone}
                     onChange={(e)=>handleChange(e,'phone')}
                     required></Input>
                 </FormGroup>
@@ -172,9 +172,9 @@ const handleSubmit=(event)=>{
                     <Input 
                     type="email"
                     placeholder="Enter here"
-                    id="exchangerEmail"
-                    value={exchangeDetail.exchangerEmail}
-                    onChange={(e)=>handleChange(e,'exchangerEmail')}
+                    id="borrowerEmail"
+                    value={borrowDetail.borrowerEmail}
+                    onChange={(e)=>handleChange(e,'borrowerEmail')}
                     required></Input>
                 </FormGroup>
                 <Container className="text-center">
@@ -199,7 +199,7 @@ const handleSubmit=(event)=>{
   )
 }
 
-export default ExchangeForm;
+export default BorrowForm;
 
 
 

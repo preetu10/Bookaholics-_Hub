@@ -7,7 +7,7 @@ function PostExchange({post={b_title:"This is default post title",b_authorname:"
         <CardBody>
           <h4>
         <Badge color= "info" >
-             {post.purpose}
+            
         </Badge>
           </h4>
             <h1>
@@ -20,7 +20,7 @@ function PostExchange({post={b_title:"This is default post title",b_authorname:"
             {post.b_edition} Edition   ||  Number of Pages: {post.b_numOfPages}
             </h5>
             <h6>
-            Book ID: {post.bid}
+            Book ID: {post.ebId}
             </h6>
             <h5>
             <Badge color= "info" >
@@ -31,7 +31,7 @@ function PostExchange({post={b_title:"This is default post title",b_authorname:"
                 {post.b_description}...
             </CardText>
             <div className='text-center'>
-              <Button href="/services">Exchange</Button>
+              <Button href={`/user/exchange-book-info/${post.ebId}`}>Exchange</Button>
             </div>
         </CardBody>
     </Card>
