@@ -21,20 +21,6 @@ const MyExchangePosts=()=> {
     })
   },[eEmail]);
 
-  const handleEdit=(ebId) => {
-    editExchangePost(ebId).then((response) => {
-      if(response.status === 200){
-        toast.success("Edited Successfully");
-        navigate("/user/exchange");
-      }
-      else if(response.status === 204){
-        toast.error("Try again later");
-      }
-    }).catch((error)=>{
-      console.log(error);
-      toast.error("Something went wrong. Try again later");
-    })  
-  }
   return (
   <Base>
    <Row className="m-4">
@@ -70,7 +56,7 @@ const MyExchangePosts=()=> {
                         <td>{book.wishedBookEdition}</td>
                         <td>{book.category}</td>
                         <td>{(book.b_quantity>0)?"Available":"Unavailable"}</td>
-                        <td><Button color='primary' onClick={() => handleEdit(book.ebId)}>Edit</Button></td>
+                        <td>{(book.b_quantity>0)?<Button color='primary' href={`/user/edit-exchange-post/${book.ebId}`} >Edit</Button>:<Button color='secondary' disabled>Edit</Button>}</td>
                     </tr>
                     ))}
                     </tbody>):

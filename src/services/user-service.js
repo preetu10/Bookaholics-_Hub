@@ -123,9 +123,9 @@ export const getMySellPosts=(eEmail)=>{
     .then((response)=>response.data);
 }
 
-export const editSellPost=(sid)=>{
-    return myAxios.put(`/api/user/edit-sell/${sid}`)
-    .then((response)=>response.data);
+export const editSellPost=(post)=>{
+    return myAxios.put(`/api/user/edit-sell`,post)
+    .then((response)=>response);
 }
 
 export const getMyBorrowPosts=(eEmail)=>{
@@ -133,9 +133,9 @@ export const getMyBorrowPosts=(eEmail)=>{
     .then((response)=>response.data);
 }
 
-export const editBorrowPost=(borrId)=>{
-    return myAxios.put(`/api/user/edit-borrow/${borrId}`)
-    .then((response)=>response.data);
+export const editBorrowPost=(post)=>{
+    return myAxios.put(`/api/user/edit-borrow`,post)
+    .then((response)=>response);
 }
 
 export const getMyExchangePosts=(eEmail)=>{
@@ -143,9 +143,9 @@ export const getMyExchangePosts=(eEmail)=>{
     .then((response)=>response.data);
 }
 
-export const editExchangePost=(ebId)=>{
-    return myAxios.put(`/api/user/edit-exchange/${ebId}`)
-    .then((response)=>response.data);
+export const editExchangePost=(post)=>{
+    return myAxios.put(`/api/user/edit-exchange/`,post)
+    .then((response)=>response);
 }
 export const getMyPurchase=(eEmail)=>{
     return myAxios.get(`/api/user/my-purchase/${eEmail}`)

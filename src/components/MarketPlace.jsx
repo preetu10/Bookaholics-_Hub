@@ -8,7 +8,6 @@ function MarketPlace() {
   useEffect(()=>{
     //load all the sell posts from server
     getBuyPosts().then((response)=>{
-      console.log(response);
       setPosts(response);
     }).catch((error)=>{
       console.log(error);

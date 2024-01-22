@@ -31,6 +31,9 @@ import MyExchangedBooks from './pages/userRoutes/MyExchangedBooks';
 import MySellRecords from './pages/userRoutes/MySellRecords';
 import MyLendRecords from './pages/userRoutes/MyLendRecords';
 import MyExchangeRecords from './pages/userRoutes/MyExchangeRecords';
+import EditSellPost from './pages/userRoutes/EditSellPost';
+import EditBorrowPost from './pages/userRoutes/EditBorrowPost';
+import EditExchangePost from './pages/userRoutes/EditExchangePost';
 function App() {
   return (
     <UserProvider>
@@ -65,6 +68,9 @@ function App() {
         <Route path="my-sell-records/:eEmail" element={<MySellRecords/>} />
         <Route path="my-lend-records/:eEmail" element={<MyLendRecords/>} />
         <Route path="my-exchange-records/:eEmail" element={<MyExchangeRecords/>} />
+        <Route path="edit-sell-post/:sid" element={<EditSellPost/>} />
+        <Route path="edit-borrow-post/:borrId" element={<EditBorrowPost/>} />
+        <Route path="edit-exchange-post/:ebId" element={<EditExchangePost/>} />
 
       </Route>
     </Routes>

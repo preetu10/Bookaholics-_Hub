@@ -21,20 +21,7 @@ const MyBorrowPosts=()=> {
     })
   },[eEmail]);
 
-  const handleEdit=(borrId) => {
-    editBorrowPost(borrId).then((response) => {
-      if(response.status === 200){
-        toast.success("Edited Successfully");
-        navigate("/user/borrow");
-      }
-      else if(response.status === 204){
-        toast.error("Try again later");
-      }
-    }).catch((error)=>{
-      console.log(error);
-      toast.error("Something went wrong. Try again later");
-    })  
-  }
+  
   return (
   <Base>
    <Row className="mt-4">
@@ -70,7 +57,7 @@ const MyBorrowPosts=()=> {
                         <td>{book.paymentForBorrow}</td>
                         <td>{book.category}</td>
                         <td>{(book.b_quantity>0)?"Available":"Unavailable"}</td>
-                        <td><Button color='primary' onClick={() => handleEdit(book.borrId)}>Edit</Button></td>
+                        <td>{(book.b_quantity>0)?<Button color='primary' href={`/user/edit-borrow-post/${book.borrId}`}>Edit</Button>:<Button color='secondary' disabled>Edit</Button>}</td>
                     </tr>
                     ))}
                     </tbody>):

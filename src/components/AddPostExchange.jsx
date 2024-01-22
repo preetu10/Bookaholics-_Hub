@@ -67,7 +67,7 @@ return (
         <Col sm={{size:6,offset:3}}>
         <Card color="dark" outline className="shadow-md">
         <CardHeader>
-            <h3 className="text-center">Add New Book to give Borrow</h3>
+            <h3 className="text-center">Add New Book to Exchange</h3>
         </CardHeader>
         <CardBody>
             <Form onSubmit={submitForm}>

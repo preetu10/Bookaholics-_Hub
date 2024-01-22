@@ -92,7 +92,7 @@ function Signup() {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="tel">Enter phone number</Label>
+                    <Label for="phone">Enter phone number</Label>
                     <Input 
                     type="telephone"
                     placeholder="Enter here"
@@ -117,7 +117,7 @@ function Signup() {
                     </Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="name">Enter password name</Label>
+                    <Label for="password">Enter password name</Label>
                     <Input 
                     type="password"
                     placeholder="Enter here"

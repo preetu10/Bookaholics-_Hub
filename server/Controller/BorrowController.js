@@ -199,7 +199,6 @@ export const getMyBorrowPosts = async (req, res) => {
         soldBy_Email: soldBy_Email,
 },
 });
-console.log(gotBook);
 res.send(gotBook);
 }
 
@@ -300,9 +299,45 @@ export const getMyLendRecords = async (req, res) =>{
     }
     records.push(recordObject);
   })
-  console.log(records);
   res.send(records);
 }
+
+export const editBorrowPost = async (req,res) => {
+  const borrId=Number(req.body.borrId);
+  const b_title =req.body.b_title;
+  const  b_authorname =req.body.b_authorname;
+  const b_edition =req.body.b_edition;
+  const b_numOfPages=Number(req.body.b_numOfPages);
+  const b_description=req.body.b_description;
+  const b_price =Number(req.body.b_price);
+  const category = req.body.category;
+  const pickupPoint = req.body.pickupPoint;
+  const returnTime=req.body.returnTime;
+
+  const updateBorrowPost = await prisma.borrowableBook.update({
+    where:{
+      borrId: borrId,
+    },
+    data:{
+        b_title :b_title,
+        b_authorname :b_authorname,
+        b_edition :b_edition,
+        b_numOfPages:b_numOfPages,
+        b_description:b_description,
+        b_price :b_price,
+        category :category,
+        pickupPoint :pickupPoint,
+        returnTime :returnTime,
+     }
+  })
+  if(updateBorrowPost!=null){
+    res.status(200).send("Process Completed Successfully");
+ }
+ else{
+   res.status(204).send("Process could not be completed.");
+ }
+}
+
 
 
 

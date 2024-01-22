@@ -1,8 +1,8 @@
 import { Router } from "express";
 import {createUser,findUser, getUser} from "../Controller/UserController.js";
-import { createSellPost, getBuyPosts, getABook, orderPlace, getOrderRequests, deleteOrderProcess, confirmOrderRequest, getMySellPosts, getMyPurchase, getMySellRecords } from "../Controller/BuySellController.js";
-import {createBorrowPost, getBorrowPosts, getBorrowBook, borrowPlace, getBorrowRequests, deleteBorrowProcess, confirmBorrowRequest, getMyBorrowPosts, getMyBorrow, getMyLendRecords } from "../Controller/BorrowController.js";
-import { createExchangePost, getExchangePosts, getExchangeBook, exchangePlace, getExchangeRequests, deleteExchangeProcess, confirmRequest, getMyExchangePosts, getMyExchange, getMyExchangeRecords } from "../Controller/ExchangeController.js";
+import { createSellPost, getBuyPosts, getABook, orderPlace, getOrderRequests, deleteOrderProcess, confirmOrderRequest, getMySellPosts, getMyPurchase, getMySellRecords, editSellPost } from "../Controller/BuySellController.js";
+import {createBorrowPost, getBorrowPosts, getBorrowBook, borrowPlace, getBorrowRequests, deleteBorrowProcess, confirmBorrowRequest, getMyBorrowPosts, getMyBorrow, getMyLendRecords, editBorrowPost } from "../Controller/BorrowController.js";
+import { createExchangePost, getExchangePosts, getExchangeBook, exchangePlace, getExchangeRequests, deleteExchangeProcess, confirmRequest, getMyExchangePosts, getMyExchange, getMyExchangeRecords, editExchangePost } from "../Controller/ExchangeController.js";
 const router = new Router();
 
 router.post("/register",createUser);
@@ -41,6 +41,10 @@ router.delete("/delete-order-process/:orderId",deleteOrderProcess);
 router.put("/confirm-request/:epId",confirmRequest);
 router.put("/confirm-borrow-request/:bpId",confirmBorrowRequest);
 router.put("/confirm-order-request/:orderId",confirmOrderRequest);
+router.put("/edit-sell",editSellPost);
+router.put("/edit-borrow",editBorrowPost);
+router.put("/edit-exchange",editExchangePost);
+
 
 export default router;
 
