@@ -1,6 +1,6 @@
 import React from 'react'
 import Base from '../../components/Base';
-import AddPostBorrow from '../../components/AddPostBorrow';
+import {AddPostBorrow} from '../../components/AddPostBorrow';
 import { Container } from 'reactstrap';
 
 const AddBorrow=()=> {

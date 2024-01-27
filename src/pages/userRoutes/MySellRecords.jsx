@@ -30,13 +30,13 @@ const MySellRecords=()=> {
                 <tr className='text-center'>
                     <th>Order No</th>
                     <th>Book ID</th>
-                    <th>Title of Book</th>
+                    <th>Book Title</th>
                     <th>Buyer Name</th>
                     <th>Buyer Email</th>
                     <th>Buyer Phone Number</th>
                     <th>Order Time</th>
                     <th>Quantity</th>
-                    <th>Payment</th>
+                    <th>Total Payment</th>
                     <th>Pickup Point</th>
                    
                 </tr>

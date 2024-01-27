@@ -1,176 +1,190 @@
 import React,{useState } from 'react'
 import { Card, CardBody, Form, FormGroup, Col, Row, Label, Input, Button, Container, CardHeader } from 'reactstrap';
 import {toast} from 'react-toastify';
-import { addBorrowPost } from '../services/user-service';
+ import { addBorrowPost } from '../services/user-service';
 
-const AddPostBorrow=()=> {
 
-  const [data, setData]=useState({
-    b_title:'',
-    b_authorname:'',
-    b_edition:'',
-    b_numOfPages:'',
-    b_description:'',
-    b_price:'',
-    b_quantity:'',
-    category:'',
-    pickupPoint:'',
-    returnTime:'',
-    b_soldBy_Email:''
-})
-const handleChange = (event,property)=> {
-setData({...data,[property]:event.target.value})
-}
+export  const AddPostBorrow=()=> {
+    const [title,setTitle]=useState('');
+    const [authorname,setAuthorname]=useState('');
+    const [edition,setEdition]=useState('');
+    const [numOfPages,setNumOfPages]=useState('');
+    const [description,setDescription]=useState('');
+    const [price,setPrice]=useState('');
+    const [quantity,setQuantity]=useState('');
+    const [category,setCategory]=useState('');
+    const [pickupPoint,setPickupPoint]=useState('');
+    const [returnTime,setReturnTime]=useState('');
+    const [email,setEmail]=useState('');
+    const [imageFile, setImageFile] = useState(null);
+
+    const handleImageChange = (event) => {
+        setImageFile(event.target.files[0]);
+       
+      };
+      const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log(imageFile);
+    
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('title', title);
+        formData.append('authorname', authorname);
+        formData.append('edition', edition);
+        formData.append('description', description);
+        formData.append('numOfPages', numOfPages);
+        formData.append('price', price);
+        formData.append('quantity', quantity);
+        formData.append('email', email);
+        formData.append('category', category);
+        formData.append('pickupPoint', pickupPoint);
+        formData.append('returnTime', returnTime);
+
+        // ... append other form data
+        console.log(formData.get('category')); 
+        addBorrowPost(formData).then((response)=>{
+            console.log(response);
+            toast.success("Post added successfully. "+response.b_title);
+                    setTitle('');
+                    setAuthorname('');
+                    setEdition('');
+                    setNumOfPages('');
+                    setDescription('');
+                    setPrice('');
+                    setQuantity('');
+                    setCategory('');
+                    setPickupPoint('');
+                    setReturnTime('');
+                    setImageFile('');
+                    setEmail('')
+        }).catch((error)=>{
+            console.log(error);
+        })
+       };
+
 const handleReset=()=>{
-  setData(
-        {
-            b_title:'',
-            b_authorname:'',
-            b_edition:'',
-            b_numOfPages:'',
-            b_description:'',
-            b_price:'',
-            b_quantity:'',
-            category:'',
-            pickupPoint:'',
-            returnTime:'',
-            b_soldBy_Email:''
-        }
-    )
+    setTitle('');
+    setAuthorname('');
+    setEdition('');
+    setNumOfPages('');
+    setDescription('');
+    setPrice('');
+    setQuantity('');
+    setCategory('');
+    setPickupPoint('');
+    setReturnTime('');
+    setImageFile('');
+    setEmail('')
 }
-const submitForm = (event)=>{
-  event.preventDefault();
-  addBorrowPost(data).then((response)=>{
-      toast.success("Post added successfully. "+response.b_title);
-      setData({
-        b_title:'',
-        b_authorname:'',
-        b_edition:'',
-        b_numOfPages:'',
-        b_description:'',
-        b_price:'',
-        b_quantity:'',
-        category:'',
-        pickupPoint:'',
-        returnTime:'',
-        b_soldBy_Email:''
-      })
-  }).catch((error)=>{
-      console.log(error);
-  })
-}
+
 return (
     <Container className="mb-5" >
     <Row className="mt-5">
         <Col sm={{size:6,offset:3}}>
         <Card color="dark" outline className="shadow-md">
         <CardHeader>
-            <h3 className="text-center">Add New Book to give Borrow</h3>
+            <h3 className="text-center">Add New Book to Give Borrow</h3>
         </CardHeader>
         <CardBody>
-            <Form onSubmit={submitForm}>
+            <Form onSubmit={handleSubmit}>
                 <FormGroup>
-                    <Label for="name">Enter Book Title</Label>
+                    <Label for="b_title">Enter Book Title</Label>
                     <Input 
                     type="text"
                     placeholder="Enter here"
                     id="b_title"
-                    onChange={(e)=>handleChange(e,'b_title')}
-                    value={data.b_title}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="name">Enter Author Name</Label>
+                    <Label for="b_authorname">Enter Author Name</Label>
                     <Input 
                     type="text"
                     placeholder="Enter here"
                     id="b_authorname"
-                    onChange={(e)=>handleChange(e,'b_authorname')}
-                    value={data.b_authorname}
+                    value={authorname}
+                    onChange={(e) => setAuthorname(e.target.value)}
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="name">Enter Edition of Book</Label>
+                    <Label for="b_edition">Enter Edition of Book</Label>
                     <Input 
                     type="text"
                     placeholder="Enter here e.g 6th. If this is a nonacademic book then write 'Not Required'."
                     id="b_edition"
-                    onChange={(e)=>handleChange(e,'b_edition')}
-                    value={data.b_edition}
+                    value={edition}
+                    onChange={(e) => setEdition(e.target.value)}
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="name">Enter Number of Pages of Book</Label>
+                    <Label for="b_numOfPages">Enter Number of Pages of Book</Label>
                     <Input 
                     type="number"
                     placeholder="Enter here"
                     id="b_numOfPages"
-                    onChange={(e)=>handleChange(e,'b_numOfPages')}
-                    value={data.b_numOfPages}
+                    value={numOfPages}
+                    onChange={(e) => setNumOfPages(e.target.value)}
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="text">Enter Quantity of Book</Label>
+                    <Label for="b_quantity">Enter Quantity of Book</Label>
                     <Input 
                     type="number"
                     placeholder="Enter here"
                     id="b_quantity"
-                    onChange={(e)=>handleChange(e,'b_quantity')}
-                    value={data.b_quantity}
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="name">Enter Brief Description of Book</Label>
+                    <Label for="b_description">Enter Brief Description of Book</Label>
                     <Input 
                     type="textarea"
                     placeholder="Enter here"
                     id="b_description"
-                    onChange={(e)=>handleChange(e,'b_description')}
-                    value={data.b_description}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="name">Enter Price of Book</Label>
+                    <Label for="price">Enter Price of Book</Label>
                     <Input 
                     type="number"
                     placeholder="Enter here"
                     id="b_price"
-                    onChange={(e)=>handleChange(e,'b_price')}
-                    value={data.b_price}
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="category">Select Category</Label>
+                    <Label for="image">Enter Cover Picture Of Book</Label>
                     <Input 
-                    type="select"
-                    id="category"
-                    onChange={(e)=>handleChange(e,'category')}
-                    required>
-                        <option value={"Academic"}>
-                            Academic
-                        </option>
-                        <option value={"Non Academic"}>
-                            Non Academic
-                        </option>
-                    </Input>
+                    type="file"
+                    placeholder="Choose file"
+                    id="image"
+                    name="image"
+                    onChange={handleImageChange}
+                    required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="text">Enter PickUp Point From Where Borrower Will Receive The Book</Label>
+                    <Label for="pickupPoint">Enter PickUp Point From Where Borrower Will Receive The Book</Label>
                     <Input 
                     type="address"
                     placeholder="Enter pickup point"
                     id="pickupPoint"
-                    onChange={(e)=>handleChange(e,'pickupPoint')}
-                    value={data.pickupPoint}
+                    value={pickupPoint}
+                    onChange={(e) => setPickupPoint(e.target.value)}
                     required
                     ></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="category">Select Duration For How Long A Borrower Can Keep The Book To Himself</Label>
+                    <Label for="returnTime">Select Duration For How Long A Borrower Can Keep The Book To Himself</Label>
                     <Input 
                     type="select"
                     id="returnTime"
-                    onChange={(e)=>handleChange(e,'returnTime')}
+                    onChange={(e) => setReturnTime(e.target.value)}
                     required>
                         <option value={"7 Days"}>
                             7 days
@@ -183,14 +197,31 @@ return (
                         </option>
                     </Input>
                 </FormGroup>
+
                 <FormGroup>
-                    <Label for="text">Enter Email Address of Lender</Label>
+                    <Label for="category">Select Category</Label>
+                    <Input 
+                    type="select"
+                    id="category"
+                    onChange={(e) => setCategory(e.target.value)}
+                    required>
+                        <option value={"Academic"}>
+                            Academic
+                        </option>
+                        <option value={"Non Academic"}>
+                            Non Academic
+                        </option>
+                    </Input>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="email">Enter Email Address of Lender</Label>
                     <Input 
                     type="email"
                     placeholder="Enter your email address carefully"
-                    id="b_soldBy_Email"
-                    onChange={(e)=>handleChange(e,'b_soldBy_Email')}
-                    value={data.b_soldBy_Email}
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  
                     required
                     ></Input>
                 </FormGroup>
@@ -209,6 +240,4 @@ return (
     </Row>
     </Container>  
   )
-}
-
-export default AddPostBorrow;
+};

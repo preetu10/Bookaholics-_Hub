@@ -24,20 +24,20 @@ const MyBorrowPosts=()=> {
   
   return (
   <Base>
-   <Row className="mt-4">
-        <Col lg={{size:10,offset:1}}>
-        <h2 className="mb-4">My Books For Borrow</h2>
+   <Row className="m-4">
+        <Col >
+        <h2 className="mb-4">My Books For Lend</h2>
         <Table responsive striped bordered={false} className="text-justify-center">
             <thead>
                 <tr className='text-center'>
-                    <th>Serial No</th>
-                    <th>Title of Book</th>
+                    <th>ID No</th>
+                    <th>Book Title</th>
                     <th>Author of Book</th>
                     <th>Edition of Book</th>
                     <th>Number of Pages</th>
-                    <th>Duration to Keep Book</th>
+                    <th>Rent Period</th>
                     <th>Pick Up Point</th>
-                    <th>Payment for Borrow</th>
+                    <th>Rental Fee</th>
                     <th>Category</th>
                     <th>State</th>
                     <th>Edit Post</th>

@@ -1,4 +1,5 @@
 import { myAxios } from "./helper";
+import FormData from 'form-data';
 
 export const signUp=(user)=>{
     return myAxios.post('/api/user/register',user)
@@ -8,18 +9,41 @@ export const signIn=(loginDetail)=>{
     return myAxios.post('/api/user/login',loginDetail)
     .then((response)=>response)
 }
-export const addSellPost=(data)=>{
-    return myAxios.post('/api/user/addsell',data)
+export const addSellPost=(formData)=>{
+    console.log(formData.get('authorname'));
+    console.log(formData.get('title'));
+    console.log(formData.get('price'));
+    return myAxios.post('/api/user/addsell',formData,{
+        headers:{
+            'Content-Type':'multipart/form-data'
+        }
+    })
     .then((response)=>response.data)
 }
 
-export const addBorrowPost=(data)=>{
-    return myAxios.post('/api/user/addborrow',data)
+export const addBorrowPost=(formData)=>{
+    console.log(formData.get('authorname'));
+    console.log(formData.get('title'));
+    console.log(formData.get('price'));
+    console.log(formData.get('pickupPoint'));
+    return myAxios.post('/api/user/addborrow',formData,{
+        headers:{
+            'Content-Type':'multipart/form-data'
+        }
+    })
     .then((response)=>response.data)
 }
 
-export const addExchangePost=(data)=>{
-    return myAxios.post('/api/user/addexchange',data)
+export const addExchangePost=(formData)=>{
+    console.log(formData.get('authorname'));
+    console.log(formData.get('title'));
+    console.log(formData.get('price'));
+    console.log(formData.get('wishedBook'));
+    return myAxios.post('/api/user/addexchange',formData,{
+        headers:{
+            'Content-Type':'multipart/form-data'
+        }
+    })
     .then((response)=>response.data)
 }
 

@@ -30,12 +30,12 @@ const MyExchangeRecords=()=> {
                 <tr className='text-center'>
                     <th>Serial No</th>
                     <th>Book ID</th>
-                    <th>Title of Book</th>
+                    <th>Book Title</th>
                     <th>Exchanger Name</th>
                     <th>Exchanger Email</th>
                     <th>Exchanger Phone Number</th>
-                    <th>Exchange Time</th>
-                    <th>My Desired Book</th>
+                    <th>Request Time</th>
+                    <th>Desired Book</th>
                 </tr>
             </thead>
             {posts?(

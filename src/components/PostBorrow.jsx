@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Card, CardBody, CardText, Badge } from 'reactstrap'
 
-function PostBorrow({post={b_title:"This is default post title",b_authorname:"Author",b_edition:"Edition",bid:"Identity code",b_numOfPages:"number",b_price:"unknown",b_description:"This is default post description"}}) {
+function PostBorrow({post={b_title:"This is default post title",b_authorname:"Author",b_edition:"Edition",borrId:"Identity code",b_numOfPages:"number",b_price:"price",b_description:"Default Post description",image:"coverImage"}}) {
+  const imageSource='/'+post.image.replace(/^.*?\\public\\/, '').replace(/\\/g, '/');
   return (
     <Card className='border-1 shadow-sm my-3'>
         <CardBody>
@@ -20,8 +21,9 @@ function PostBorrow({post={b_title:"This is default post title",b_authorname:"Au
             {post.b_edition} Edition   ||  Number of Pages: {post.b_numOfPages}
             </h5>
             <h6>
-            Book ID: {post.bid}
+            Book ID: {post.borrId}
             </h6>
+              <img src={imageSource} alt="cover page"  width="210px" height="210px"/> 
             <h5>
             <Badge color= "info" >
                  Tk. {post.b_price}

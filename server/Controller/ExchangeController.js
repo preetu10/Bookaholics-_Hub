@@ -1,20 +1,21 @@
 /* eslint-disable no-unused-vars */
-import { startTransition } from "react";
 import prisma from "../DB/db.config.js";
+import upload from '../multer.config.js';
 
 export const createExchangePost = async(req,res)=>{
-    const b_title =req.body.b_title;
-    const  b_authorname =req.body.b_authorname;
-    const b_edition =req.body.b_edition;
-    const b_numOfPages=Number(req.body.b_numOfPages);
-    const b_description=req.body.b_description;
-    const b_price =Number(req.body.b_price);
-    const b_quantity =Number(req.body.b_quantity);
+    const b_title =req.body.title;
+    const  b_authorname =req.body.authorname;
+    const b_edition =req.body.edition;
+    const b_numOfPages=Number(req.body.numOfPages);
+    const b_description=req.body.description;
+    const b_price =Number(req.body.price);
+    const b_quantity =Number(req.body.quantity);
     const category = req.body.category;
     const wishedBook = req.body.wishedBook;
     const wishedBookAuthor = req.body.wishedBookAuthor;
     const wishedBookEdition = req.body.wishedBookEdition;
-    const soldBy_Email =req.body.b_soldBy_Email;
+    const imagePath = req.file ? req.file.path : null; 
+    const soldBy_Email =req.body.email;
     const newPost=await prisma.exchangeableBook.create({
         data:{
             b_title:b_title,
@@ -25,6 +26,7 @@ export const createExchangePost = async(req,res)=>{
             b_price:b_price,
             b_quantity:b_quantity,
             category:category,
+            image:imagePath,
             soldBy_Email:soldBy_Email,
             wishedBook:wishedBook,
             wishedBookAuthor:wishedBookAuthor,

@@ -28,14 +28,14 @@ const MyExchangedBooks=()=> {
         <Table responsive striped bordered={false} className="text-justify-center">
             <thead>
                 <tr className='text-center'>
-                    <th>Serial No</th>
-                    <th>Title of Book</th>
+                    <th>ID No</th>
+                    <th>Book Title</th>
                     <th>Author of Book</th>
                     <th>Edition of Book</th>
                     <th>Request Time</th>
-                    <th>Title of Desired Book</th>
-                    <th>Author of Desired Book</th>
-                    <th>Edition of Desired Book</th>
+                    <th>Desired Book's Title</th>
+                    <th>Desired Book's Author</th>
+                    <th>Desired Book's Edition</th>
                     <th>Exchanger Email</th>
                     <th>State</th>
                 </tr>

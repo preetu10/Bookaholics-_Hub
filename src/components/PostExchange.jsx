@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Card, CardBody, CardText, Badge } from 'reactstrap'
 
-function PostExchange({post={b_title:"This is default post title",b_authorname:"Author",b_edition:"Edition",bid:"Identity code",b_numOfPages:"number",b_price:"unknown",b_description:"This is default post description"}}) {
+function PostExchange({post={b_title:"This is default post title",b_authorname:"Author",b_edition:"Edition",b_numOfPages:"number",b_price:"unknown",b_description:"This is default post description",image:"coverPage"}}) {
+  const imageSource='/'+post.image.replace(/^.*?\\public\\/, '').replace(/\\/g, '/');
   return (
     <Card className='border-1 shadow-sm my-3'>
         <CardBody>
@@ -22,6 +23,7 @@ function PostExchange({post={b_title:"This is default post title",b_authorname:"
             <h6>
             Book ID: {post.ebId}
             </h6>
+            <img src={imageSource} alt="cover page"  width="210px" height="210px"/>
             <h5>
             <Badge color= "info" >
                  Tk. {post.b_price}

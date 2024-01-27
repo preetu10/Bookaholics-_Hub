@@ -103,9 +103,9 @@
                           My Posts
                         </DropdownToggle>
                         <DropdownMenu >
-                          <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`}>My Sell Posts</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-borrow-posts/${user.email}`}>My Borrow Posts</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-exchange-posts/${user.email}`}>My Exchange Posts</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`}>Sell Zone</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-borrow-posts/${user.email}`}>Borrow Zone</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-exchange-posts/${user.email}`}>Exchange Zone</DropdownItem>
                        </DropdownMenu>
                     </UncontrolledDropdown>
                     <UncontrolledDropdown nav inNavbar direction='down' className='text-black'>
@@ -113,14 +113,14 @@
                           My Library
                         </DropdownToggle>
                         <DropdownMenu >
-                          <DropdownItem tag={ReactLink} to={`/user/my-purchase/${user.email}`}>My Purchase</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-borrow/${user.email}`}>My Borrowed Books</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-exchange/${user.email}`}>My Exchanged Books</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-purchase/${user.email}`}>Purchased Books</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-borrow/${user.email}`}>Borrowed Books</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-exchange/${user.email}`}>Exchanged Books</DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
-                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`}>My Sell Records</DropdownItem>
-                    <DropdownItem tag={ReactLink} to={`/user/my-lend-records/${user.email}`}>My Lend Records</DropdownItem>
-                    <DropdownItem tag={ReactLink} to={`/user/my-exchange-records/${user.email}`}>My Exchange Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`}>Sell Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-lend-records/${user.email}`}>Lend Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-exchange-records/${user.email}`}>Exchange Records</DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem onClick={logout}>Log Out</DropdownItem>
                   </DropdownMenu>

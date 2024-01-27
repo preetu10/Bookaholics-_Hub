@@ -36,6 +36,7 @@ model SellingBook {
   b_price Int
   b_quantity Int
   category String
+  image String
   postAt DateTime @default(now())
   sold_by User @relation(fields: [soldBy_Email],references: [email])
   soldBy_Email String
@@ -66,6 +67,7 @@ model ExchangeableBook {
   b_price Int
   b_quantity Int
   category String
+  image String
   postAt DateTime @default(now())
   sold_by User @relation(fields: [soldBy_Email],references: [email])
   soldBy_Email String
@@ -96,6 +98,7 @@ model BorrowableBook {
   b_price Int
   b_quantity Int
   category String
+  image String
   postAt DateTime @default(now())
   sold_by User @relation(fields: [soldBy_Email],references: [email])
   soldBy_Email String

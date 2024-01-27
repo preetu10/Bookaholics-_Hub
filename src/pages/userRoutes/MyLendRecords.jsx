@@ -30,14 +30,14 @@ const MyLendRecords=()=> {
                 <tr className='text-center'>
                     <th>Serial No</th>
                     <th>Book ID</th>
-                    <th>Title of Book</th>
+                    <th>Book Title</th>
                     <th>Borrower Name</th>
                     <th>Borrower Email</th>
                     <th>Borrower Phone Number</th>
-                    <th>Borrow Time</th>
-                    <th>Payment for Borrow</th>
+                    <th>Request Time</th>
+                    <th>Rental Fee</th>
                     <th>Pickup Point</th>
-                    <th>Return Time</th>
+                    <th>Rent Period</th>
                 </tr>
             </thead>
             {posts?(

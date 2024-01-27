@@ -38,15 +38,7 @@ const EditSellPost=()=> {
         setInitialPost({...response});
         })
     },[sid])
-    // const handleChange=(event,field)=>{
-    //     let actualValue=event.target.value
-    //    // console.log(actualValue)
-    //     setPost({
-    //         ...post,
-    //         [field]: actualValue,
-    //         sid:sid,
-    //     })
-    // }
+  
     const handleChange = (event, field) => {
         const actualValue = event.target.value;
         setPost((prevPost) => ({

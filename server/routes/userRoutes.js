@@ -3,13 +3,17 @@ import {createUser,findUser, getUser} from "../Controller/UserController.js";
 import { createSellPost, getBuyPosts, getABook, orderPlace, getOrderRequests, deleteOrderProcess, confirmOrderRequest, getMySellPosts, getMyPurchase, getMySellRecords, editSellPost } from "../Controller/BuySellController.js";
 import {createBorrowPost, getBorrowPosts, getBorrowBook, borrowPlace, getBorrowRequests, deleteBorrowProcess, confirmBorrowRequest, getMyBorrowPosts, getMyBorrow, getMyLendRecords, editBorrowPost } from "../Controller/BorrowController.js";
 import { createExchangePost, getExchangePosts, getExchangeBook, exchangePlace, getExchangeRequests, deleteExchangeProcess, confirmRequest, getMyExchangePosts, getMyExchange, getMyExchangeRecords, editExchangePost } from "../Controller/ExchangeController.js";
+// const upload = require('./multer.config');
+import upload from '../multer.config.js';
 const router = new Router();
+
+
 
 router.post("/register",createUser);
 router.post("/login",findUser);
-router.post("/addsell",createSellPost);
-router.post("/addborrow",createBorrowPost);
-router.post("/addexchange",createExchangePost);
+router.post("/addsell",upload.single('image'),createSellPost);
+router.post("/addborrow",upload.single('image'),createBorrowPost);
+router.post("/addexchange",upload.single('image'),createExchangePost);
 router.post("/orderplace",orderPlace);
 router.post("/borrowplace",borrowPlace)
 router.post("/exchangeplace",exchangePlace);

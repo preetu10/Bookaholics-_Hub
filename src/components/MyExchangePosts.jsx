@@ -29,14 +29,14 @@ const MyExchangePosts=()=> {
         <Table responsive striped bordered={false} className="text-justify-center">
             <thead>
                 <tr className='text-center'>
-                    <th>Serial No</th>
-                    <th>Title of Book</th>
+                    <th>ID No</th>
+                    <th>Book Title</th>
                     <th>Author of Book</th>
                     <th>Edition of Book</th>
                     <th>Number of Pages</th>
-                    <th>The Book I You Want</th>
-                    <th>Your Wished Book's Author</th>
-                    <th>Your Wished Book's Edition</th>
+                    <th>Desired Book</th>
+                    <th>Desired Book's Author</th>
+                    <th>Desired Book's Edition</th>
                     <th>Category</th>
                     <th>State</th>
                     <th>Edit Post</th>
