@@ -79,7 +79,7 @@ const ExchangeRequests=()=> {
                         <td>{book.postAt}</td>
                         <td>{book.exchangerEmail}</td>
                         <td>{book.phone}</td>
-                        <td><Button color='primary' onClick={() => handleConfirm(book.epId)}    href="/user/exchange">Confirm</Button></td>
+                        <td><Button style={{backgroundColor:"#EE7214", border:"none"}} onClick={() => handleConfirm(book.epId)}    href="/user/exchange">Confirm</Button></td>
                         <td><Button color='danger' onClick={() => handleCancel(book.epId)} value={book.epId}>Cancel</Button></td>
                     </tr>
                     ))}

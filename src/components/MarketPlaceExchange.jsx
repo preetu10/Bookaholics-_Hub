@@ -18,9 +18,9 @@ function MarketPlaceExchange() {
     posts?(
     <div className="container-fluid">
       <Row >
-        <Col md={{size:10,offset:1}}>
+      <Col md={{size:9,offset:2}}>
           <h1>Exchangeable Books</h1>
-          <Button color='primary' href="/user/addexchange">Add Books to Exchange</Button>
+          <Button style={{backgroundColor:"#EE7214", border:"none"}} href="/user/addexchange">Add Books to Exchange</Button>
          {
            posts.map((post) => {
              return <PostExchange post={post} key={post.ebId} />

@@ -15,11 +15,11 @@ function MarketPlace() {
   },[])
   return (
     posts?(
-    <div className="container-fluid">
+    <div className="container-fluid justify-center">
       <Row >
-        <Col md={{size:10,offset:1}}>
+        <Col md={{size:9,offset:2}}>
           <h1>Market Place for Selling Books</h1>
-          <Button color='primary' href="/user/addsell">Add Books for Sell</Button>
+          <Button style={{backgroundColor:"#EE7214", border:"none"}} href="/user/addsell">Add Books for Sell</Button>
          {
            posts.map((post) => {
              return <Post post={post} key={post.bid} />

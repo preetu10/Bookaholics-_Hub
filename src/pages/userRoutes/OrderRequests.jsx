@@ -79,7 +79,7 @@ const OrderRequests=()=> {
                         <td>{book.orderedAt}</td>
                         <td>{book.takenBy_Email}</td>
                         <td>{book.phone}</td>
-                        <td><Button color='primary' onClick={() => handleConfirm(book.orderId)}>Confirm</Button></td>
+                        <td><Button style={{backgroundColor:"#EE7214", border:"none"}} onClick={() => handleConfirm(book.orderId)}>Confirm</Button></td>
                         <td><Button color='danger' onClick={() => handleCancel(book.orderId)} value={book.orderId}>Cancel</Button></td>
                     </tr>
                     ))}

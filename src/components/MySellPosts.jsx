@@ -14,7 +14,6 @@ const MySellPosts=()=> {
   
   useEffect(()=>{
     getMySellPosts(eEmail).then((response)=>{
-        console.log(response);
       setPosts(response);
     }).catch((error)=>{
       console.log(error);
@@ -56,7 +55,7 @@ const MySellPosts=()=> {
                         <td>{book.b_quantity}</td>
                         <td>{book.category}</td>
                         <td> { (book.b_quantity>0)?"Available":"Unavailable"}</td>
-                        <td>{(book.b_quantity>0)?<Button color='primary' href={`/user/edit-sell-post/${book.sid}`}>Edit</Button>:<Button color='secondary' disabled>Edit</Button>}</td>
+                        <td>{(book.b_quantity>0)?<Button style={{backgroundColor:"#EE7214", border:"none"}} href={`/user/edit-sell-post/${book.sid}`}>Edit</Button>:<Button color='secondary' disabled>Edit</Button>}</td>
                     </tr>
                     ))}
                     </tbody>):

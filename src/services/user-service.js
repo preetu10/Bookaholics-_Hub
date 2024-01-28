@@ -3,7 +3,7 @@ import FormData from 'form-data';
 
 export const signUp=(user)=>{
     return myAxios.post('/api/user/register',user)
-    .then((response)=>response.data)
+    .then((response)=>response)
 }
 export const signIn=(loginDetail)=>{
     return myAxios.post('/api/user/login',loginDetail)
@@ -199,4 +199,23 @@ export const getMyLendRecords=(eEmail)=>{
 export const getMyExchangeRecords=(eEmail)=>{
     return myAxios.get(`/api/user/my-exchange-records/${eEmail}`)
     .then((response)=>response.data);
+}
+export const getAllUser=()=>{
+    return myAxios.get(`/api/user/get-all-user`)
+    .then((response)=>response.data);
+}
+
+export const getTransactionBuySell = () => {
+    return myAxios.get('/api/user/transaction-buy-sell')
+        .then((response) => response.data)
+}
+
+export const getTransactionBorrow = () => {
+    return myAxios.get('/api/user/transaction-borrow')
+        .then((response) => response.data)
+}
+
+export const getTransactionExchange = () => {
+    return myAxios.get('/api/user/transaction-exchange')
+        .then((response) => response.data)
 }

@@ -36,8 +36,12 @@
     transform: rotate(360deg);
   }
 } */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
 body{
   background: #eceff1!important;
+  font-family: 'Open Sans', sans-serif;
 }
 
 

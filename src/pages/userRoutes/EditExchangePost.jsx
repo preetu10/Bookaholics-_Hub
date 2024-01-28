@@ -37,7 +37,6 @@ const EditExchangePost=()=> {
     const navigate =useNavigate();
     useEffect(()=>{
         getExchangeBook(ebId).then((response)=>{
-          //console.log(response);
         setPost({...response});
         setInitialPost({...response});
         })
@@ -88,7 +87,6 @@ const EditExchangePost=()=> {
                     <Label for="b_title">Title of Book</Label>
                     <Input 
                     type="text"
-                    // disabled={isState}
                     id="b_title"
                     value={post.b_title}
                      onChange={(e)=>handleChange(e,'b_title')}
@@ -104,9 +102,9 @@ const EditExchangePost=()=> {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="text">Edition of Book</Label>
+                    <Label for="b_edition">Edition of Book</Label>
                     <Input 
-                    type="b_edition"
+                    type="text"
                     id="b_edition"
                     value={post.b_edition}
                     onChange={(e)=>handleChange(e,'b_edition')}
@@ -176,7 +174,7 @@ const EditExchangePost=()=> {
                     required></Input>
                 </FormGroup>
                 <Container className="text-center">
-                    <Button color="success"  className='mr-2'  >
+                    <Button style={{backgroundColor:"#EE7214", border:"none"}}  className='mr-2'  >
                         Save
                     </Button>
                     {' '}

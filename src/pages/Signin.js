@@ -22,12 +22,18 @@ function Signin() {
         event.preventDefault();
         signIn(loginDetail).then((response)=>{
             if(response.status===200){
-            toast.success("User logged in. Welcome "+response.data.name);
-            doLoggedIn(response.data,()=>{
-                console.log("login detail is saved to local storage");
-                navigate("/user/buysell");
-            })
-            }else{
+            toast.success("Welcome "+response.data.name);
+                    if(response.data.role==="Admin"){
+                        doLoggedIn(response.data,()=>{
+                            console.log("login detail is saved to local storage");
+                            navigate("/admin/all-user");
+                        })
+                    }else{
+                    doLoggedIn(response.data,()=>{
+                        console.log("login detail is saved to local storage");
+                        navigate("/user/buysell");
+                    })
+            }}else{
                 toast.error("Not found.Enter correct email and password or create new account if you don't have one.");
             }
             setLoginDetail({
@@ -36,7 +42,7 @@ function Signin() {
             })
         }).catch((error)=>{
             console.log(error);
-            toast.error("Something went wrong");
+            toast.error("Something went wrong. Try again later");
             setLoginDetail({
                 email:'',
                 password:'',
@@ -55,7 +61,7 @@ function Signin() {
         <CardBody>
             <Form onSubmit={handleSubmit}>
                 <FormGroup>
-                    <Label for="email">Enter email address</Label>
+                    <Label for="email">Enter your email address</Label>
                     <Input 
                     type="email"
                     placeholder="Enter here"
@@ -65,7 +71,7 @@ function Signin() {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="name">Enter password</Label>
+                    <Label for="password">Enter password</Label>
                     <Input 
                     type="password"
                     placeholder="Enter here"
@@ -75,7 +81,7 @@ function Signin() {
                     required></Input>
                 </FormGroup>
                 <Container className="text-center">
-                    <Button color="info" outline>
+                    <Button style={{backgroundColor:"#EE7214", border:"none",color:"#fff"}}>
                         Sign in
                     </Button>
                 </Container>

@@ -7,6 +7,7 @@
         "addpost",
         "addsell",
         "addsellpost",
+        "Adminroute",
         "authorname",
         "Bookaholics",
         "borr",
@@ -33,6 +34,8 @@
         "sellposts",
         "Signin",
         "signup",
-        "toastify"
+        "toastify",
+        "transactionbuysell",
+        "transactionbuysells"
     ]
 }

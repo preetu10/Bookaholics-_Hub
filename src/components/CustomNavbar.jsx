@@ -36,114 +36,150 @@
     }
       return (
         <div>
-          <Navbar 
-            color="dark"
-            dark
-            expand="md"
-            fixed="true"
-            className="px-5 py-3"
-            >
-            <NavbarBrand tag={ReactLink} to="/">Bookaholics Hub</NavbarBrand>
+           <Navbar
+        expand="md"
+        // fixed="top"
+        className="px-4 transparent-navbar"
+        style={{
+          background: 'rgba(0,0,0,0.5)',
+           backdropFilter: 'blur(5px) brightness(1.3) hue-rotate(5deg) saturate(0.9)', // Adjusted blur and saturation
+          // border: '1px solid rgba(200, 200, 200, 0.3)', // Light border
+          // boxShadow: '0px 50% ${blur(normal)} ${inset}',
+          border:"none",
+        }}
+      >
+             <NavbarBrand tag={ReactLink} to="/" style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#fff' }}>
+          <img src="../logo2.png" style={{ height: '40px' }} alt="" />
+        </NavbarBrand>
+          {/* <NavbarBrand tag={ReactLink} to="/">Bookaholics Hub</NavbarBrand> */}
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
               <Nav className="me-auto" navbar>
                 <NavItem>
-                  <NavLink tag={ReactLink} to="">About</NavLink>
+                  <NavLink tag={ReactLink} to="/about" style={{ color: 'white' }}>About</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink   tag={ReactLink}  to="">
+                  <NavLink   tag={ReactLink}  to="/contact" style={{ color: 'white' }}>
                     Contact
                   </NavLink>
                 </NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    More
-                  </DropdownToggle>
-                  <DropdownMenu >
-                    <DropdownItem tag={ReactLink} to="/services">Our Policies</DropdownItem>
-                    <DropdownItem>Licenses</DropdownItem>
-                    {/* <DropdownItem divider />
-                    <DropdownItem>Reset</DropdownItem> */}
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                <NavLink   tag={ReactLink}  to="/services" style={{ color: 'white' }}>
+                    Our Terms and Policies
+                  </NavLink>
               </Nav>
               <Nav navbar>
+                {/* general user */}
               {
                 login && (user.role==="General") &&  (
                   <>
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret style={{ color: 'white' }}>
                     Market Place
                   </DropdownToggle>
                   <DropdownMenu >
-                    <DropdownItem tag={ReactLink} to="/user/buysell">Buy-Sell Section</DropdownItem>
-                    <DropdownItem tag={ReactLink} to="/user/borrow">Borrow Section</DropdownItem>
-                    <DropdownItem tag={ReactLink} to="/user/exchange">Exchange Section</DropdownItem>
+                    <DropdownItem tag={ReactLink} to="/user/buysell" style={{ color: 'black' }}>Buy-Sell Section</DropdownItem>
+                    <DropdownItem tag={ReactLink} to="/user/borrow" style={{ color: 'black' }}>Borrow Section</DropdownItem>
+                    <DropdownItem tag={ReactLink} to="/user/exchange" style={{ color: 'black' }}>Exchange Section</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret style={{ color: 'white' }}>
                     Requests
                   </DropdownToggle>
                   <DropdownMenu >
-                  <DropdownItem tag={ReactLink} to={`/user/exchange-requests/${user.email}`}>Exchange Requests</DropdownItem>
-                  <DropdownItem tag={ReactLink} to={`/user/borrow-requests/${user.email}`}>Borrow Requests</DropdownItem>
-                  <DropdownItem tag={ReactLink} to={`/user/order-requests/${user.email}`}>Order Requests</DropdownItem>
+                  <DropdownItem tag={ReactLink} to={`/user/exchange-requests/${user.email}` } style={{ color: 'black' }}>Exchange Requests</DropdownItem>
+                  <DropdownItem tag={ReactLink} to={`/user/borrow-requests/${user.email}`} style={{ color: 'black' }}>Borrow Requests</DropdownItem>
+                  <DropdownItem tag={ReactLink} to={`/user/order-requests/${user.email}`} style={{ color: 'black' }}>Order Requests</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
                  
                   <UncontrolledDropdown nav inNavbar direction='left'>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret style={{ color: 'white' }}>
                     My Section
                   </DropdownToggle>
                   <DropdownMenu >
-                    <DropdownItem tag={ReactLink} to={`/user/profile/${user.id}`}>My Profile</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/profile/${user.id}`} style={{ color: 'black' }}>My Profile</DropdownItem>
                     <UncontrolledDropdown nav inNavbar direction='down' className='text-black'>
                         <DropdownToggle nav caret className='text-black' >
                           My Posts
                         </DropdownToggle>
                         <DropdownMenu >
-                          <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`}>Sell Zone</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-borrow-posts/${user.email}`}>Borrow Zone</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-exchange-posts/${user.email}`}>Exchange Zone</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`} style={{ color: 'black' }}>Sell Zone</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-borrow-posts/${user.email}`} style={{ color: 'black' }}>Borrow Zone</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-exchange-posts/${user.email}`} style={{ color: 'black' }}>Exchange Zone</DropdownItem>
                        </DropdownMenu>
                     </UncontrolledDropdown>
-                    <UncontrolledDropdown nav inNavbar direction='down' className='text-black'>
+                    <UncontrolledDropdown nav inNavbar direction='down' className='text-white'>
                         <DropdownToggle nav caret className='text-black' >
                           My Library
                         </DropdownToggle>
                         <DropdownMenu >
-                          <DropdownItem tag={ReactLink} to={`/user/my-purchase/${user.email}`}>Purchased Books</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-borrow/${user.email}`}>Borrowed Books</DropdownItem>
-                          <DropdownItem tag={ReactLink} to={`/user/my-exchange/${user.email}`}>Exchanged Books</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-purchase/${user.email}`} style={{ color: 'black' }}>Purchased Books</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-borrow/${user.email}`} style={{ color: 'black' }}>Borrowed Books</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/user/my-exchange/${user.email}`} style={{ color: 'black' }}>Exchanged Books</DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
-                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`}>Sell Records</DropdownItem>
-                    <DropdownItem tag={ReactLink} to={`/user/my-lend-records/${user.email}`}>Lend Records</DropdownItem>
-                    <DropdownItem tag={ReactLink} to={`/user/my-exchange-records/${user.email}`}>Exchange Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`} style={{ color: 'black' }}>Sell Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-lend-records/${user.email}`} style={{ color: 'black' }}>Lend Records</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-exchange-records/${user.email}`} style={{ color: 'black' }}>Exchange Records</DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem onClick={logout}>Log Out</DropdownItem>
+                    <DropdownItem onClick={logout} style={{ color: 'black' }}>Log Out</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
+                </>
+                )
+              }
+        {/* publisher */}
+                {
+                login && (user.role==="Publisher") &&  (
+                  <>
+               <NavItem>
+                  <NavLink tag={ReactLink} to="/user/buysell" style={{ color: 'white' }}>Market Place</NavLink>
+                 </NavItem>
+                 <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret style={{ color: 'white' }}>
+                    My Section
+                  </DropdownToggle>
+                  <DropdownMenu >
+                    <DropdownItem tag={ReactLink} to={`/user/profile/${user.id}`} style={{ color: 'black' }}>My Profile</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/order-requests/${user.email}`} style={{ color: 'black' }}>Order Requests</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`} style={{ color: 'black' }}>My Sell Posts</DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`} style={{ color: 'black' }}>My Sell Records</DropdownItem>
+
+                    <DropdownItem divider />
+                    <DropdownItem onClick={logout} style={{ color: 'black' }}>Log Out</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                
                  
                 </>
                 )
               }
+              {/* admin */}
                  {
-                login && (user.role==="Publisher") &&  (
+                login && (user.role==="Admin") &&  (
                   <>
                   <NavItem>
-                  <NavLink tag={ReactLink} to="/user/buysell">Market Place</NavLink>
+                  <NavLink tag={ReactLink} to="/admin/all-user" style={{ color: 'white' }}>User Records</NavLink>
                 </NavItem>
-                  <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    My Section
+                  <UncontrolledDropdown nav inNavbar direction='left'>
+                  <DropdownToggle nav caret style={{ color: 'white' }}>
+                  Others
                   </DropdownToggle>
                   <DropdownMenu >
                     <DropdownItem tag={ReactLink} to={`/user/profile/${user.id}`}>My Profile</DropdownItem>
-                    <DropdownItem tag={ReactLink} to={`/user/order-requests/${user.email}`}>Order Requests</DropdownItem>
-                    <DropdownItem tag={ReactLink} to={`/user/my-sell-posts/${user.email}`}>My Sell Posts</DropdownItem>
-                    <DropdownItem tag={ReactLink} to={`/user/my-sell-records/${user.email}`}>My Sell Records</DropdownItem>
+                    <UncontrolledDropdown nav inNavbar direction='left' className='text-black'>
+                        <DropdownToggle nav caret className='text-black' >
+                          Transactions
+                        </DropdownToggle>
+                        <DropdownMenu >
+                          <DropdownItem tag={ReactLink} to={`/admin/buy-sell-transaction`} style={{ color: 'black' }}>Buy Sell Details</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/admin/borrow-transaction`} style={{ color: 'black' }}>Borrow Details</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/admin/exchange-transaction`} style={{ color: 'black' }}>Exchange Details</DropdownItem>
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+                    {/* <DropdownItem tag={ReactLink} to={`/admin/`}></DropdownItem>
+                    <DropdownItem tag={ReactLink} to={`/admin/`}></DropdownItem> */}
 
                     <DropdownItem divider />
                     <DropdownItem onClick={logout}>Log Out</DropdownItem>
@@ -153,14 +189,15 @@
                 </>
                 )
               }
+                
               {
                 !login && (
                   <>
                   <NavItem>
-                  <NavLink tag={ReactLink} to="/signup">Sign up</NavLink>
+                  <NavLink tag={ReactLink} to="/signup" style={{ color: 'white' }}>Sign up</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={ReactLink} to="/signin">Sign in</NavLink>
+                  <NavLink tag={ReactLink} to="/signin" style={{ color: 'white' }}>Sign in</NavLink>
                 </NavItem>
                 </>
                 )

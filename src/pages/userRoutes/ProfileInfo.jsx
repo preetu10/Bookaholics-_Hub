@@ -11,7 +11,6 @@ function ProfileInfo() {
   
   useEffect(()=>{
     getUser(userId).then((response)=>{
-      console.log(response);
       setUser({...response})
     })
   },[userId])
@@ -19,10 +18,10 @@ function ProfileInfo() {
     return (
       <Row>
         <Col md={{size:8,offset:2}}>
-         <Card >
+         <Card style={{marginTop:'50px',marginBottom:"20px",zIndex:"-1"}}>
           <CardBody>
-            <h3>
-              USER INFORMATION
+            <h3 className='font-extrabold'>
+              MY INFORMATION
               </h3>
               <Container className="text-center">
                 <img style={{maxWidth:'180px', maxHeight:'180px'}} src="../../../default_picture.jpg" alt="user_profile" className="img-fluid rounded" />

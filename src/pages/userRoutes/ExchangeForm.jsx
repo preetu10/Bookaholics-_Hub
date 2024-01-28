@@ -13,7 +13,6 @@ const ExchangeForm=()=> {
 
   useEffect(()=>{
       getExchangeBook(ebId).then((response)=>{
-        //console.log(response);
       setBook({...response})
       })
   },[ebId])
@@ -37,7 +36,7 @@ const handleSubmit=(event)=>{
   event.preventDefault();
   exchangePlace(exchangeDetail).then((response)=>{
     if(response.status===200){
-      toast.success("The process is completed");
+      toast.success("Request has been sent to the owner of the book.");
       navigate("/user/exchange");
       }else{
           toast.error("Process Could Not Be Completed! Try Again later");
@@ -160,7 +159,7 @@ const handleSubmit=(event)=>{
             <FormGroup>
                     <Label for="phone">Enter Your Contact Number</Label>
                     <Input 
-                    type="tel"
+                    type="number"
                     placeholder="Enter here"
                     id="phone"
                     value={exchangeDetail.phone}
@@ -177,8 +176,14 @@ const handleSubmit=(event)=>{
                     onChange={(e)=>handleChange(e,'exchangerEmail')}
                     required></Input>
                 </FormGroup>
+                <FormGroup check>
+                <Input type="checkbox" required />
+                <Label check>
+                I have read the terms and policies of this platform carefully and I agree with these.
+                </Label>
+                </FormGroup>
                 <Container className="text-center">
-                    <Button color="info" outline>
+                    <Button style={{backgroundColor:"#EE7214", border:"none",color:"#fff"}} >
                         Submit
                     </Button>
                 </Container>

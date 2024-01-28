@@ -14,7 +14,6 @@ const MyBorrowPosts=()=> {
   
   useEffect(()=>{
     getMyBorrowPosts(eEmail).then((response)=>{
-        console.log(response);
       setPosts(response);
     }).catch((error)=>{
       console.log(error);
@@ -57,7 +56,7 @@ const MyBorrowPosts=()=> {
                         <td>{book.paymentForBorrow}</td>
                         <td>{book.category}</td>
                         <td>{(book.b_quantity>0)?"Available":"Unavailable"}</td>
-                        <td>{(book.b_quantity>0)?<Button color='primary' href={`/user/edit-borrow-post/${book.borrId}`}>Edit</Button>:<Button color='secondary' disabled>Edit</Button>}</td>
+                        <td>{(book.b_quantity>0)?<Button style={{backgroundColor:"#EE7214", border:"none"}} href={`/user/edit-borrow-post/${book.borrId}`}>Edit</Button>:<Button color='secondary' disabled>Edit</Button>}</td>
                     </tr>
                     ))}
                     </tbody>):

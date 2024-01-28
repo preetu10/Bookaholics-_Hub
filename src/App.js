@@ -4,7 +4,7 @@ import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
-import Services from './pages/Services';
+import Services from './pages/Policy';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import UserDashboard from './pages/userRoutes/UserDashboard';
@@ -34,6 +34,13 @@ import MyExchangeRecords from './pages/userRoutes/MyExchangeRecords';
 import EditSellPost from './pages/userRoutes/EditSellPost';
 import EditBorrowPost from './pages/userRoutes/EditBorrowPost';
 import EditExchangePost from './pages/userRoutes/EditExchangePost';
+import Adminroute from './components/Adminroute';
+import AllUser from './pages/adminRoutes/AllUser';
+import TransactionBuySell from './pages/adminRoutes/TransactionBuySell';
+import TransactionBorrow from './pages/adminRoutes/TransactionBorrow';
+import TransactionExchange from './pages/adminRoutes/TransactionExchange';
+import About from './pages/About';
+import Contact from './pages/Contact';
 function App() {
   return (
     <UserProvider>
@@ -44,6 +51,9 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Signin />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+
 
       <Route path="/user" element={<Privateroute />}>
         <Route path="addsell" element={<UserDashboard />} />
@@ -71,8 +81,17 @@ function App() {
         <Route path="edit-sell-post/:sid" element={<EditSellPost/>} />
         <Route path="edit-borrow-post/:borrId" element={<EditBorrowPost/>} />
         <Route path="edit-exchange-post/:ebId" element={<EditExchangePost/>} />
+      </Route>
+
+      <Route path="/admin" element={<Adminroute />}>
+          <Route path="all-user" element={<AllUser />} />
+          <Route path="buy-sell-transaction" element={<TransactionBuySell />} />
+          <Route path="borrow-transaction" element={<TransactionBorrow />} />
+          <Route path="exchange-transaction" element={<TransactionExchange />} />
+          
 
       </Route>
+
     </Routes>
     </BrowserRouter>
     </UserProvider>

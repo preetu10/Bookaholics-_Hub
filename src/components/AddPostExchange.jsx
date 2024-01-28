@@ -2,9 +2,10 @@ import React,{useState } from 'react'
 import { Card, CardBody, Form, FormGroup, Col, Row, Label, Input, Button, Container, CardHeader } from 'reactstrap';
 import {toast} from 'react-toastify';
  import { addExchangePost } from '../services/user-service';
-
+import { useNavigate } from 'react-router-dom';
 
 export  const AddPostExchange=()=> {
+    const navigate=useNavigate();
     const [title,setTitle]=useState('');
     const [authorname,setAuthorname]=useState('');
     const [edition,setEdition]=useState('');
@@ -24,7 +25,6 @@ export  const AddPostExchange=()=> {
       };
       const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(imageFile);
         const formData = new FormData();
         formData.append('image', imageFile);
         formData.append('title', title);
@@ -41,9 +41,7 @@ export  const AddPostExchange=()=> {
         formData.append('wishedBookEdition', wishedBookEdition);
 
         // ... append other form data
-        console.log(formData.get('category')); 
         addExchangePost(formData).then((response)=>{
-            console.log(response);
             toast.success("Post added successfully. "+response.b_title);
                     setTitle('');
                     setAuthorname('');
@@ -57,7 +55,8 @@ export  const AddPostExchange=()=> {
                     setWishedBookAuthor('');
                     setWishedBookEdition('');
                     setImageFile('');
-                    setEmail('')
+                    setEmail('');
+                    navigate('/user/exchange');
         }).catch((error)=>{
             console.log(error);
         })
@@ -225,12 +224,17 @@ return (
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                  
                     required
                     ></Input>
                 </FormGroup>
+                <FormGroup check>
+                <Input type="checkbox" required />
+                <Label check>
+                I have read the terms and policies of this platform carefully and I agree with these.
+                </Label>
+                </FormGroup>
                 <Container className="text-center">
-                    <Button color="info" outline>
+                    <Button style={{backgroundColor:"#EE7214", border:"none",color:"#fff"}} >
                         Submit
                     </Button>
                     <Button onClick={handleReset} color="secondary" outline className="m-4">

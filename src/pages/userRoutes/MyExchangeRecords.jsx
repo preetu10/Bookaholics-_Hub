@@ -3,18 +3,16 @@ import React,{useEffect,useState,useContext} from 'react'
 import Base from '../../components/Base'
 import {Table,Col,Row} from "reactstrap"
 import {getMyExchangeRecords} from '../../services/user-service';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import userContext from '../../context/userContext';
 
 const MyExchangeRecords=()=> {
     const object=useContext(userContext);
     const [posts,setPosts]=useState();
     const {eEmail}=useParams();
-    const navigate=useNavigate();
   
   useEffect(()=>{
     getMyExchangeRecords(eEmail).then((response)=>{
-        console.log(response);
       setPosts(response); 
     }).catch((error)=>{
       console.log(error);

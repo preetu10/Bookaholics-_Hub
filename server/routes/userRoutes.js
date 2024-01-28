@@ -1,13 +1,26 @@
 import { Router } from "express";
-import {createUser,findUser, getUser} from "../Controller/UserController.js";
-import { createSellPost, getBuyPosts, getABook, orderPlace, getOrderRequests, deleteOrderProcess, confirmOrderRequest, getMySellPosts, getMyPurchase, getMySellRecords, editSellPost } from "../Controller/BuySellController.js";
-import {createBorrowPost, getBorrowPosts, getBorrowBook, borrowPlace, getBorrowRequests, deleteBorrowProcess, confirmBorrowRequest, getMyBorrowPosts, getMyBorrow, getMyLendRecords, editBorrowPost } from "../Controller/BorrowController.js";
-import { createExchangePost, getExchangePosts, getExchangeBook, exchangePlace, getExchangeRequests, deleteExchangeProcess, confirmRequest, getMyExchangePosts, getMyExchange, getMyExchangeRecords, editExchangePost } from "../Controller/ExchangeController.js";
-// const upload = require('./multer.config');
 import upload from '../multer.config.js';
+import nodemailer from "nodemailer";
+
+import {createUser,findUser, getUser, getAllUser } from "../Controller/UserController.js";
+
+import { createSellPost, getBuyPosts, 
+        getABook, orderPlace, getOrderRequests, deleteOrderProcess,
+        confirmOrderRequest, getMySellPosts, getMyPurchase, 
+        getMySellRecords, editSellPost, transactionBuySell} from "../Controller/BuySellController.js";
+
+import {createBorrowPost, getBorrowPosts, 
+        getBorrowBook, borrowPlace, getBorrowRequests, deleteBorrowProcess, 
+        confirmBorrowRequest, getMyBorrowPosts, getMyBorrow, 
+        getMyLendRecords, editBorrowPost, transactionBorrow } from "../Controller/BorrowController.js";
+
+import {createExchangePost, getExchangePosts, 
+        getExchangeBook, exchangePlace, getExchangeRequests, deleteExchangeProcess, 
+        confirmRequest, getMyExchangePosts, getMyExchange, getMyExchangeRecords, 
+        editExchangePost, transactionExchange } from "../Controller/ExchangeController.js";
+
+        
 const router = new Router();
-
-
 
 router.post("/register",createUser);
 router.post("/login",findUser);
@@ -37,6 +50,10 @@ router.get("/my-exchange/:eEmail",getMyExchange);
 router.get("/my-sell-records/:eEmail",getMySellRecords);
 router.get("/my-lend-records/:eEmail",getMyLendRecords);
 router.get("/my-exchange-records/:eEmail",getMyExchangeRecords);
+router.get("/get-all-user",getAllUser);
+router.get("/transaction-buy-sell",transactionBuySell);
+router.get("/transaction-borrow",transactionBorrow);
+router.get("/transaction-exchange",transactionExchange);
 
 router.delete("/delete-exchange-process/:epId",deleteExchangeProcess);
 router.delete("/delete-borrow-process/:bpId",deleteBorrowProcess);

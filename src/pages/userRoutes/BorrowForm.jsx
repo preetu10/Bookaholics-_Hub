@@ -13,7 +13,6 @@ const BorrowForm=()=> {
 
   useEffect(()=>{
       getBorrowBook(borrId).then((response)=>{
-        //console.log(response);
       setBook({...response})
       })
   },[borrId])
@@ -37,7 +36,7 @@ const handleSubmit=(event)=>{
   event.preventDefault();
   borrowPlace(borrowDetail).then((response)=>{
     if(response.status===200){
-      toast.success("The process is completed");
+      toast.success("Request has been sent to lender.");
       navigate("/user/borrow");
       }else{
           toast.error("Process Could Not Be Completed! Try Again later");
@@ -84,7 +83,7 @@ const handleSubmit=(event)=>{
                   </tr>
                   <tr>
                   <td>
-                    <h6>Title of Book:</h6>
+                    <h6>Book Title:</h6>
                   </td>
                   <td>
                     {book.b_title}
@@ -140,7 +139,7 @@ const handleSubmit=(event)=>{
                   </tr>
                   <tr>
                   <td>
-                    <h6>Duration Of Keeping The Book :</h6>
+                    <h6>Rental Period :</h6>
                   </td>
                   <td>
                     {book.returnTime}
@@ -148,7 +147,7 @@ const handleSubmit=(event)=>{
                   </tr>
                   <tr>
                   <td>
-                    <h6>The Amount Borrower Need to Pay:</h6>
+                    <h6>Rental Fee:</h6>
                   </td>
                   <td>
                     {book.paymentForBorrow}
@@ -160,7 +159,7 @@ const handleSubmit=(event)=>{
             <FormGroup>
                     <Label for="phone">Enter Your Contact Number</Label>
                     <Input 
-                    type="tel"
+                    type="number"
                     placeholder="Enter here"
                     id="phone"
                     value={borrowDetail.phone}
@@ -168,7 +167,7 @@ const handleSubmit=(event)=>{
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="email">Enter Your Email Address</Label>
+                    <Label for="borrowerEmail">Enter Your Email Address</Label>
                     <Input 
                     type="email"
                     placeholder="Enter here"
@@ -177,8 +176,14 @@ const handleSubmit=(event)=>{
                     onChange={(e)=>handleChange(e,'borrowerEmail')}
                     required></Input>
                 </FormGroup>
+                <FormGroup check>
+                <Input type="checkbox" required />
+                <Label check>
+                I have read the terms and policies of this platform carefully and I agree with these.
+                </Label>
+                </FormGroup>
                 <Container className="text-center">
-                    <Button color="info" outline>
+                    <Button style={{backgroundColor:"#EE7214", border:"none",color:"#fff"}} >
                         Submit
                     </Button>
                 </Container>

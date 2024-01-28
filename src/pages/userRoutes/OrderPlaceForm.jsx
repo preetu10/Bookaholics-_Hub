@@ -13,7 +13,6 @@ const OrderPlaceForm=()=> {
 
   useEffect(()=>{
       getABook(sid).then((response)=>{
-        //console.log(response);
       setBook({...response})
       })
   },[sid])
@@ -24,7 +23,6 @@ const OrderPlaceForm=()=> {
     b_quantity:'',
     pickupPoint:'',
     sbID:sid,
-    // price:book.b_price,
 })
 const navigate =useNavigate();
 const handleChange=(event,field)=>{
@@ -44,7 +42,7 @@ const handleSubmit=(event)=>{
       navigate("/user/buysell");
     }
      else if(response.status===200){
-      toast.success("Your order is confirmed. You have ordered books of Tk."+response.data.total);
+      toast.success("Request has been sent to seller. You have ordered books of Tk."+response.data.total);
           navigate("/user/buysell");
       }else{
           toast.error("Process could not be completed. Try again later.");
@@ -140,10 +138,9 @@ const handleSubmit=(event)=>{
               </Table>
             <Form onSubmit={handleSubmit}>
             <FormGroup>
-                    <Label for="quantity">Enter Quantity</Label>
+                    <Label for="b_quantity">Enter Quantity</Label>
                     <Input 
                     type="number"
-                    // disabled={isState}
                     id="b_quantity"
                     value={orderDetail.b_quantity}
                     onChange={(e)=>handleChange(e,'b_quantity')}
@@ -160,7 +157,7 @@ const handleSubmit=(event)=>{
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="address">Enter Address from Where You Will Receive the Order</Label>
+                    <Label for="pickupPoint">Enter Address from Where You Will Receive the Order</Label>
                     <Input 
                     type="address"
                     placeholder="Enter here"
@@ -179,8 +176,14 @@ const handleSubmit=(event)=>{
                     onChange={(e)=>handleChange(e,'takenBy_Email')}
                     required></Input>
                 </FormGroup>
+                <FormGroup check>
+                <Input type="checkbox" required />
+                <Label check>
+                I have read the terms and policies of this platform carefully and I agree with these.
+                </Label>
+                </FormGroup>
                 <Container className="text-center">
-                    <Button color="info" outline>
+                    <Button style={{backgroundColor:"#EE7214", border:"none",color:"#fff"}} >
                         Place Order
                     </Button>
                 </Container>

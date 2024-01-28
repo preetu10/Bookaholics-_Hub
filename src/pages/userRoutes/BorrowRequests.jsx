@@ -79,8 +79,8 @@ const BorrowRequests=()=> {
                         <td>{book.postAt}</td>
                         <td>{book.borrowerEmail}</td>
                         <td>{book.phone}</td>
-                        <td><Button color='primary' onClick={() => handleConfirm(book.bpId)}>Confirm</Button></td>
-                        <td><Button color='danger' onClick={() => handleCancel(book.bpId)} value={book.epId}>Cancel</Button></td>
+                        <td><Button style={{backgroundColor:"#EE7214", border:"none"}} onClick={() => handleConfirm(book.bpId)}>Confirm</Button></td>
+                        <td><Button color='danger' onClick={() => handleCancel(book.bpId)} value={book.bpId}>Cancel</Button></td>
                     </tr>
                     ))}
                     </tbody>):

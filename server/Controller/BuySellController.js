@@ -1,7 +1,6 @@
 import prisma from "../DB/db.config.js";
-// const upload = require('./multer.config');
 import upload from '../multer.config.js';
-
+import nodemailer from "nodemailer";
 
 export const createSellPost = async(req,res)=>{
     const b_title =req.body.title;
@@ -38,10 +37,11 @@ export const getBuyPosts = async(req,res)=>{
             b_quantity:{
                 not: 0
             }
+        },
+        orderBy:{
+          b_quantity:'asc',
         }
     })
-    
-    console.log(posts);
     res.send(posts);
 }
 
@@ -133,15 +133,10 @@ export const getOrderRequests = async(req,res)=>{
             { state:"Pending" },
           ],
       },
+        orderBy:{
+          orderedAt:'asc',
+        }
     });
-    // results.forEach(item=>{
-    //     console.log(item.epId);
-    //     console.log(item.postAt);
-    //     console.log(item.exchanger.email);
-    //     console.log(item.exchangeId.b_title);
-    //     console.log(item.exchangeId.b_authorname);
-    //     console.log(item.exchangeId.b_edition);
-    // })
   
     const requests= [];
     results.forEach(item=>{
@@ -193,22 +188,77 @@ export const deleteOrderProcess = async(req,res)=>{
     res.status(204).send("Could NOT Delete.");
 }
   
+// export const confirmOrderRequest = async(req,res)=>{
+//     const orderId=req.params.orderId;
+//     const confirm= await prisma.order.update({
+//       where:{
+//         orderId:Number(orderId),
+//       },
+//       data:{
+//         state:"Confirmed",
+//       }
+//     });
+//     const getBuyerEmail = await prisma.order.findFirst({
+//       where:{
+//         orderId:Number(orderId),
+//       }
+//     })
+//     console.log(getBuyerEmail.takenBy_Email);
+//     if(confirm!=null){
+//        res.status(200).send("Process Completed Successfully");
+//     }
+//     else{
+//       res.status(204).send("Process could not be completed.");
+//     }
+// }
+
 export const confirmOrderRequest = async(req,res)=>{
-    const orderId=req.params.orderId;
-    const confirm= await prisma.order.update({
-      where:{
-        orderId:Number(orderId),
-      },
-      data:{
-        state:"Confirmed",
-      }
+  const orderId=req.params.orderId;
+  const confirm= await prisma.order.update({
+    where:{
+      orderId:Number(orderId),
+    },
+    data:{
+      state:"Confirmed",
+    }
+  });
+  const getBuyerEmail = await prisma.order.findFirst({
+    where:{
+      orderId:Number(orderId),
+    }
+  })
+  console.log(getBuyerEmail.takenBy_Email);
+  try {
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.EMAIL,  
+            pass: process.env.PASSWORD 
+        }
     });
-    if(confirm!=null){
-       res.status(200).send("Process Completed Successfully");
-    }
-    else{
-      res.status(204).send("Process could not be completed.");
-    }
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to:getBuyerEmail.takenBy_Email,
+        subject: "Order confirmation mail",
+        html: '<h1>Congratulation</h1> <h1> Your order is confirmed</h2>'
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log("Error",error)
+        } else {
+            console.log("Email sent:" + info.response);
+        }
+    })
+}catch(error){
+    console.log(error)
+}
+
+  if(confirm!=null){
+     res.status(200).send("Process Completed Successfully");
+  }
+  else{
+    res.status(204).send("Process could not be completed.");
+  }
 }
 
 export const getMySellPosts = async (req, res) => {
@@ -243,7 +293,7 @@ export const getMySellPosts = async (req, res) => {
     
     result.push(requestObject);
   })
-  console.log(result);
+  
   res.send(result);
 }
 
@@ -287,7 +337,7 @@ export const getMyPurchase= async (req, res) => {
     };
     orders.push(orderObject);
   })
-  console.log(orders);
+  
   if(orders)
       res.status(200).send(orders);
   else
@@ -380,4 +430,43 @@ export const editSellPost = async (req,res) => {
  else{
    res.status(204).send("Process could not be completed.");
  }
+}
+
+export const transactionBuySell =async (req, res) => {
+  const transaction= await prisma.order.findMany({
+    select:{
+      orderId:true,
+      state:true,
+      orderedAt:true,
+      total:true,
+      pickupPoint:true,
+      takenBy:{
+        select:{
+          email:true,
+        }
+      },
+      sellbook:{
+        select:{
+          soldBy_Email:true,
+          b_title:true,
+        }
+      }
+    }
+  });
+  const records=[];
+  transaction.forEach(record=>{
+    const recordObject = {
+      orderId: record.orderId,
+      orderedAt: record.orderedAt,
+      takenBy_Email: record.takenBy.email,
+      pickupPoint: record.pickupPoint,
+      total: record.total,
+      soldBy_Email:record.sellbook.soldBy_Email,
+      b_title:record.sellbook.b_title,
+     state:record.state,
+    }
+    records.push(recordObject);
+  })
+  res.send(records);
+
 }

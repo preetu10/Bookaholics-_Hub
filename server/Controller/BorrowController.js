@@ -1,5 +1,6 @@
 import prisma from "../DB/db.config.js";
 import upload from '../multer.config.js';
+import nodemailer from "nodemailer";
 
 export const createBorrowPost = async(req,res)=>{
     const b_title =req.body.title;
@@ -33,7 +34,6 @@ export const createBorrowPost = async(req,res)=>{
         },
     });
     
-    console.log(newPost);
     res.send(newPost);
 }
 
@@ -45,7 +45,6 @@ export const getBorrowPosts = async(req,res)=>{
             }
         }
     });
-    console.log(posts);
     res.send(posts);
 }
 
@@ -119,14 +118,6 @@ export const getBorrowRequests = async(req,res)=>{
               ],
           },
         });
-        // results.forEach(item=>{
-        //     console.log(item.epId);
-        //     console.log(item.postAt);
-        //     console.log(item.exchanger.email);
-        //     console.log(item.exchangeId.b_title);
-        //     console.log(item.exchangeId.b_authorname);
-        //     console.log(item.exchangeId.b_edition);
-        // })
       
         const requests= [];
         results.forEach(item=>{
@@ -178,23 +169,72 @@ export const deleteBorrowProcess = async(req,res)=>{
         res.status(204).send("Could NOT Delete.");
 }
       
+// export const confirmBorrowRequest = async(req,res)=>{
+//         const bpId=req.params.bpId;
+//         const confirm= await prisma.borrowProcess.update({
+//           where:{
+//             bpId:Number(bpId),
+//           },
+//           data:{
+//             borrState:"Confirmed",
+//           }
+//         });
+//         if(confirm!=null){
+//            res.status(200).send("Process Completed Successfully");
+//         }
+//         else{
+//           res.status(204).send("Process could not be completed.");
+//         }
+// }
+
 export const confirmBorrowRequest = async(req,res)=>{
-        const bpId=req.params.bpId;
-        const confirm= await prisma.borrowProcess.update({
-          where:{
-            bpId:Number(bpId),
-          },
-          data:{
-            borrState:"Confirmed",
-          }
-        });
-        if(confirm!=null){
-           res.status(200).send("Process Completed Successfully");
+  const bpId=req.params.bpId;
+  const confirm= await prisma.borrowProcess.update({
+    where:{
+      bpId:Number(bpId),
+    },
+    data:{
+      borrState:"Confirmed",
+    }
+  });
+  const getBorrowerEmail = await prisma.borrowProcess.findFirst({
+    where:{
+      bpId:Number(bpId),
+    }
+  })
+  console.log(getBorrowerEmail.borrowerEmail);
+  try {
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.EMAIL,  
+            pass: process.env.PASSWORD 
         }
-        else{
-          res.status(204).send("Process could not be completed.");
+    });
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to:getBorrowerEmail.borrowerEmail,
+        subject: "Borrow Confirmation Mail",
+        html: '<h1>Thank you for being with BookaholicsHub</h1> <h1> Your have to return the book after 7 days</h2>'
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log("Error",error)
+        } else {
+            console.log("Email sent:" + info.response);
         }
+    })
+}catch(error){
+    console.log(error)
 }
+  if(confirm!=null){
+     res.status(200).send("Process Completed Successfully");
+  }
+  else{
+    res.status(204).send("Process could not be completed.");
+  }
+}
+
 
 export const getMyBorrowPosts = async (req, res) => {
   const soldBy_Email = req.params.eEmail;
@@ -246,7 +286,6 @@ export const getMyBorrow= async (req, res) => {
     };
     borrows.push(borrowObject);
   })
-  console.log(borrows);
   if(borrows)
       res.status(200).send(borrows);
   else
@@ -340,6 +379,44 @@ export const editBorrowPost = async (req,res) => {
  else{
    res.status(204).send("Process could not be completed.");
  }
+}
+
+export const transactionBorrow =async (req, res) => {
+  const transaction= await prisma.borrowProcess.findMany({
+    select:{
+      bpId:true,
+      borrState:true,
+      borrowsAt:true,
+      phone:true,
+      borrower:{
+        select:{
+          email:true,
+        }
+      },
+      borrowId:{
+        select:{
+          soldBy_Email:true,
+          b_title:true,
+        }
+      }
+    }
+  });
+  const records=[];
+  transaction.forEach(record=>{
+    const recordObject = {
+      bpId: record.bpId,
+      borrowsAt: record.borrowsAt,
+      phone: record.phone,
+      borrState: record.borrState,
+      borrowerEmail: record.borrower.email,
+      soldBy_Email:record.borrowId.soldBy_Email,
+      b_title:record.borrowId.b_title,
+      state:record.borrState,
+    }
+    records.push(recordObject);
+  })
+  res.send(records);
+
 }
 
 

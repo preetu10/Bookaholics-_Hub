@@ -3,18 +3,16 @@ import React,{useEffect,useState,useContext} from 'react'
 import Base from '../../components/Base'
 import {Table,Col,Row} from "reactstrap"
 import {getMyExchange} from '../../services/user-service';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import userContext from '../../context/userContext';
-// import {toast} from 'react-toastify';
+
 const MyExchangedBooks=()=> {
     const object=useContext(userContext);
     const [posts,setPosts]=useState();
     const {eEmail}=useParams();
-    const navigate=useNavigate();
   
   useEffect(()=>{
     getMyExchange(eEmail).then((response)=>{
-        console.log(response);
       setPosts(response);
     }).catch((error)=>{
       console.log(error);
@@ -24,7 +22,7 @@ const MyExchangedBooks=()=> {
   <Base>
    <Row className="m-4">
         <Col>
-        <h2 className="mb-4">My Exchanged Books</h2>
+        <h2 className="mb-4">My Exchanged Books(Taken)</h2>
         <Table responsive striped bordered={false} className="text-justify-center">
             <thead>
                 <tr className='text-center'>

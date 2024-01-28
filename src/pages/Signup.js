@@ -3,6 +3,7 @@ import Base from '../components/Base'
 import {Card, CardBody, Col, Row, CardHeader, Container, Form, FormGroup, Label, Input, Button} from "reactstrap";
 import { signUp } from '../services/user-service';
 import { toast} from 'react-toastify';
+import { useNavigate } from 'react-router-dom'
 function Signup() {
     const [data, setData]=useState({
         name:'',
@@ -11,21 +12,20 @@ function Signup() {
         phone:'',
         role:'',
         password:'',
-        error:'',
     })
-//   const [error,setError]=useState({
-//     errors:{},
-//     isError:false
-//   })
-
+    const navigate =useNavigate();
   const handleChange = (event,property)=> {
     setData({...data,[property]:event.target.value})
   }
   const submitForm = (event)=>{
     event.preventDefault();
-    //console.log(data);
     signUp(data).then((response)=>{
-        toast.success("User is registered successfully."+ response.id);
+        if(response.status===204){
+            toast.info("Email already exists.");
+            navigate("/signin");
+        }
+        else{
+        toast.success("You are registered successfully.");
         setData({
             name:'',
             email:'',
@@ -34,8 +34,10 @@ function Signup() {
             role:'',
             password:'',
         })
+        navigate("/signin");}
     }).catch((error)=>{
         console.log(error);
+        navigate("/");
     })
   }
   const handleReset=()=>{
@@ -62,7 +64,7 @@ function Signup() {
         <CardBody>
             <Form onSubmit={submitForm}>
                 <FormGroup>
-                    <Label for="name">Enter full name</Label>
+                    <Label for="name">Enter your full name</Label>
                     <Input 
                     type="text"
                     placeholder="Enter here"
@@ -72,9 +74,9 @@ function Signup() {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="email">Enter email address</Label>
+                    <Label for="email">Enter your email address</Label>
                     <Input 
-                    type="text"
+                    type="email"
                     placeholder="Enter here"
                     id="email"
                     onChange={(e)=>handleChange(e,'email')}
@@ -82,7 +84,7 @@ function Signup() {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="address">Enter address</Label>
+                    <Label for="address">Enter your address</Label>
                     <Input 
                     type="text"
                     placeholder="Enter here"
@@ -92,9 +94,9 @@ function Signup() {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="phone">Enter phone number</Label>
+                    <Label for="phone">Enter your phone number</Label>
                     <Input 
-                    type="telephone"
+                    type="number"
                     placeholder="Enter here"
                     id="phone"
                     onChange={(e)=>handleChange(e,'phone')}
@@ -102,10 +104,11 @@ function Signup() {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="role">Select Role</Label>
+                    <Label for="role">Select your role</Label>
                     <Input 
                     type="select"
                     id="role"
+                    name="role"
                     onChange={(e)=>handleChange(e,'role')}
                     required>
                         <option value={"General"}>
@@ -117,7 +120,7 @@ function Signup() {
                     </Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="password">Enter password name</Label>
+                    <Label for="password">Enter password </Label>
                     <Input 
                     type="password"
                     placeholder="Enter here"
@@ -126,8 +129,14 @@ function Signup() {
                     value={data.password}
                     required></Input>
                 </FormGroup>
+                <FormGroup check>
+                <Input type="checkbox" required />
+                <Label check>
+                I have read the terms and policies of this platform carefully and I agree with these.
+                </Label>
+                </FormGroup>
                 <Container className="text-center">
-                    <Button color="primary" outline>
+                    <Button style={{backgroundColor:"#EE7214", border:"none",color:"#fff"}}>
                         Sign up
                     </Button>
                     <Button onClick={handleReset} color="secondary" outline className="m-4">

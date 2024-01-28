@@ -18,12 +18,12 @@ function MarketPlaceBorrow() {
     posts?(
     <div className="container-fluid">
       <Row >
-        <Col md={{size:10,offset:1}}>
+      <Col md={{size:9,offset:2}}>
           <h1>Borrowable Books</h1>
-          <Button color='primary' href="/user/addborrow">Add Books to Give for Borrow</Button>
+          <Button style={{backgroundColor:"#EE7214", border:"none"}} href="/user/addborrow">Add Books to Give for Borrow</Button>
          {
            posts.map((post) => {
-             return <PostBorrow post={post} key={post.bid} />
+             return <PostBorrow post={post} key={post.borrId} />
           })
           
          }

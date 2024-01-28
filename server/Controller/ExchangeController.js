@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import prisma from "../DB/db.config.js";
 import upload from '../multer.config.js';
+import nodemailer from "nodemailer";
 
 export const createExchangePost = async(req,res)=>{
     const b_title =req.body.title;
@@ -34,7 +35,6 @@ export const createExchangePost = async(req,res)=>{
         },
     });
     
-    console.log(newPost);
     res.send(newPost);
 }
 
@@ -48,7 +48,6 @@ export const getExchangePosts = async(req,res)=>{
             }
         }
     );
-    console.log(posts);
     res.send(posts);
 }
 
@@ -122,14 +121,6 @@ export const getExchangeRequests = async(req,res)=>{
         ],
     },
   });
-  // results.forEach(item=>{
-  //     console.log(item.epId);
-  //     console.log(item.postAt);
-  //     console.log(item.exchanger.email);
-  //     console.log(item.exchangeId.b_title);
-  //     console.log(item.exchangeId.b_authorname);
-  //     console.log(item.exchangeId.b_edition);
-  // })
 
   const requests= [];
   results.forEach(item=>{
@@ -144,7 +135,7 @@ export const getExchangeRequests = async(req,res)=>{
     };
     requests.push(requestObject);
   })
- // console.log(requests);
+ 
   if(requests)
       res.status(200).send(requests);
   else
@@ -182,23 +173,72 @@ export const deleteExchangeProcess = async(req,res)=>{
   res.status(204).send("Could NOT Delete.");
 }
 
+// export const confirmRequest = async(req,res)=>{
+//     const epId=req.params.epId;
+//   const confirm= await prisma.exchangeProcess.update({
+//     where:{
+//       epId:Number(epId),
+//     },
+//     data:{
+//       state:"Confirmed",
+//     }
+//   });
+//   if(confirm!=null){
+//      res.status(200).send("Process Completed Successfully");
+//   }
+//   else{
+//     res.status(204).send("Process could not be completed.");
+//   }
+// }
+
 export const confirmRequest = async(req,res)=>{
-    const epId=req.params.epId;
-  const confirm= await prisma.exchangeProcess.update({
-    where:{
-      epId:Number(epId),
-    },
-    data:{
-      state:"Confirmed",
-    }
+  const epId=req.params.epId;
+const confirm= await prisma.exchangeProcess.update({
+  where:{
+    epId:Number(epId),
+  },
+  data:{
+    state:"Confirmed",
+  }
+});
+const getExchangerEmail = await prisma.exchangeProcess.findFirst({
+  where:{
+    epId:Number(epId),
+  }
+})
+console.log(getExchangerEmail.exchangerEmail);
+try {
+  const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+          user: process.env.EMAIL,  
+          pass: process.env.PASSWORD 
+      }
   });
-  if(confirm!=null){
-     res.status(200).send("Process Completed Successfully");
-  }
-  else{
-    res.status(204).send("Process could not be completed.");
-  }
+  const mailOptions = {
+      from: process.env.EMAIL,
+      to:getExchangerEmail.exchangerEmail,
+      subject: "Exchange Confirmation Mail",
+      html: '<h1>Congratulations!!Your exchange request is confirmed<h1>Thank you for being with BookaholicsHub</h1>'
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          console.log("Error",error)
+      } else {
+          console.log("Email sent:" + info.response);
+      }
+  })
+}catch(error){
+  console.log(error)
 }
+if(confirm!=null){
+   res.status(200).send("Process Completed Successfully");
+}
+else{
+  res.status(204).send("Process could not be completed.");
+}
+}
+
 
 export const getMyExchangePosts = async (req, res) => {
   const soldBy_Email = req.params.eEmail;
@@ -207,13 +247,11 @@ export const getMyExchangePosts = async (req, res) => {
         soldBy_Email: soldBy_Email,
 },
 });
-console.log(gotBook);
 res.send(gotBook);
 }
 
 export const getMyExchange= async (req, res) => {
   const eEmail = req.params.eEmail;
-  console.log(eEmail);
   const gotBook= await prisma.exchangeProcess.findMany({
     where:{
       exchangerEmail:eEmail,
@@ -252,7 +290,7 @@ export const getMyExchange= async (req, res) => {
     };
     exchanges.push(exchangeObject);
   })
-  console.log(exchanges);
+
   if(exchanges)
       res.status(200).send(exchanges);
   else
@@ -345,6 +383,45 @@ export const editExchangePost = async (req,res) => {
  else{
    res.status(204).send("Process could not be completed.");
  }
+}
+
+export const transactionExchange =async (req, res) => {
+  const transaction= await prisma.exchangeProcess.findMany({
+    select:{
+      epId:true,
+      state:true,
+      postAt:true,
+     
+      exchanger:{
+        select:{
+          email:true,
+        }
+      },
+      exchangeId:{
+        select:{
+          soldBy_Email:true,
+          b_title:true,
+          wishedBook:true,
+        }
+      }
+    }
+  });
+  const records=[];
+  transaction.forEach(record=>{
+    const recordObject = {
+      epId: record.epId,
+      postAt: record.postAt,
+      wishedBook: record.exchangeId.wishedBook,
+      borrState: record.borrState,
+      exchangerEmail: record.exchanger.email,
+      soldBy_Email:record.exchangeId.soldBy_Email,
+      b_title:record.exchangeId.b_title,
+      state:record.state,
+    }
+    records.push(recordObject);
+  })
+  res.send(records);
+
 }
 
 

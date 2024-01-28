@@ -2,11 +2,12 @@ import React,{useState } from 'react'
 import { Card, CardBody, Form, FormGroup, Col, Row, Label, Input, Button, Container, CardHeader } from 'reactstrap';
 import {toast} from 'react-toastify';
  import { addSellPost } from '../services/user-service';
+ import { useNavigate } from 'react-router-dom';
 
 
 export  const AddPost=()=> {
 
-
+    const navigate=useNavigate();
     const [title,setTitle]=useState('');
     const [authorname,setAuthorname]=useState('');
     const [edition,setEdition]=useState('');
@@ -20,7 +21,6 @@ export  const AddPost=()=> {
 
     const handleImageChange = (event) => {
         setImageFile(event.target.files[0]);
-       
       };
       const handleSubmit = async (event) => {
         event.preventDefault();
@@ -38,9 +38,9 @@ export  const AddPost=()=> {
         formData.append('email', email);
         formData.append('category', category);
         // ... append other form data
-        console.log(formData.get('category')); 
+        
         addSellPost(formData).then((response)=>{
-            console.log(response);
+       
             toast.success("Post added successfully. "+response.b_title);
                     setTitle('');
                     setAuthorname('');
@@ -51,35 +51,11 @@ export  const AddPost=()=> {
                     setQuantity('');
                     setCategory('');
                     setImageFile('');
-                    setEmail('')
+                    setEmail('');
+                    navigate('/user/buysell');
         }).catch((error)=>{
             console.log(error);
         })
-      
-          
-    //     try {
-    //         // console.log(formData[0]);
-    //       const response = await fetch('http://localhost:8080/api/user/addsell', {
-    //         method: 'POST',
-    //         body: formData
-    //       });
-    //       // ... handle response
-    //       toast.success("Post added successfully. "+response.b_title);
-    //       setTitle('');
-    //       setAuthorname('');
-    //       setEdition('');
-    //       setNumOfPages('');
-    //       setDescription('');
-    //       setPrice('');
-    //       setQuantity('');
-    //       setCategory('');
-    //       setImageFile('');
-    //       setEmail('')
-
-    //     } catch (error) {
-    //       console.error(error);
-    //       // ... handle error
-    //     }
        };
 
 const handleReset=()=>{
@@ -209,12 +185,17 @@ return (
                     id="b_soldBy_Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                  
                     required
                     ></Input>
                 </FormGroup>
+                <FormGroup check>
+                <Input type="checkbox" required />
+                <Label check>
+                I have read the terms and policies of this platform carefully and I agree with these.
+                </Label>
+                </FormGroup>
                 <Container className="text-center">
-                    <Button color="info" outline>
+                    <Button style={{backgroundColor:"#EE7214", border:"none",color:"#fff"}} >
                         Submit
                     </Button>
                     <Button onClick={handleReset} color="secondary" outline className="m-4">

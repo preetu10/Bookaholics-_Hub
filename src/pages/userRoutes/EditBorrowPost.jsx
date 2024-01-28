@@ -35,7 +35,6 @@ const EditBorrowPost=()=> {
     const navigate =useNavigate();
     useEffect(()=>{
         getBorrowBook(borrId).then((response)=>{
-          //console.log(response);
         setPost({...response});
         setInitialPost({...response});
         })
@@ -55,7 +54,6 @@ const EditBorrowPost=()=> {
       
     const handleSubmit=(event)=>{
         event.preventDefault();
-        console.log(post)
         editBorrowPost(post).then((response)=>{
         if(response.status===200){
             toast.success("Updated successfully");
@@ -87,7 +85,6 @@ const EditBorrowPost=()=> {
                     <Label for="b_title">Title of Book</Label>
                     <Input 
                     type="text"
-                    // disabled={isState}
                     id="b_title"
                     value={post.b_title}
                      onChange={(e)=>handleChange(e,'b_title')}
@@ -103,9 +100,9 @@ const EditBorrowPost=()=> {
                     required></Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="text">Edition of Book</Label>
+                    <Label for="b_edition">Edition of Book</Label>
                     <Input 
-                    type="b_edition"
+                    type="text"
                     id="b_edition"
                     value={post.b_edition}
                     onChange={(e)=>handleChange(e,'b_edition')}
@@ -166,7 +163,7 @@ const EditBorrowPost=()=> {
                     required></Input>
                 </FormGroup>
                 <Container className="text-center">
-                    <Button color="success"  className='mr-2'  >
+                    <Button style={{backgroundColor:"#EE7214", border:"none"}}  className='mr-2'  >
                         Save
                     </Button>
                     {' '}
