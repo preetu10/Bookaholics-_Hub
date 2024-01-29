@@ -470,3 +470,8 @@ export const transactionBuySell =async (req, res) => {
   res.send(records);
 
 }
+
+export const getAllBuySellPost = async (req, res) => {
+  const gotAllBuySellPost = await prisma.sellingBook.findMany()
+  res.send(gotAllBuySellPost);
+}

@@ -178,6 +178,16 @@
                           <DropdownItem tag={ReactLink} to={`/admin/exchange-transaction`} style={{ color: 'black' }}>Exchange Details</DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
+                    <UncontrolledDropdown nav inNavbar direction='left' className='text-black'>
+                        <DropdownToggle nav caret className='text-black' >
+                          Records
+                        </DropdownToggle>
+                        <DropdownMenu >
+                          <DropdownItem tag={ReactLink} to={`/admin/all-buy-sell-post`} style={{ color: 'black' }}>Posts for Buy Sell</DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/admin/all-borrow-post`} style={{ color: 'black' }}>Posts for Borrow </DropdownItem>
+                          <DropdownItem tag={ReactLink} to={`/admin/all-exchange-post`} style={{ color: 'black' }}>Posts for Exchange</DropdownItem>
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
                     {/* <DropdownItem tag={ReactLink} to={`/admin/`}></DropdownItem>
                     <DropdownItem tag={ReactLink} to={`/admin/`}></DropdownItem> */}
 

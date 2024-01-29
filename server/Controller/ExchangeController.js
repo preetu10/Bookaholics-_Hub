@@ -424,6 +424,12 @@ export const transactionExchange =async (req, res) => {
 
 }
 
+export const getAllExchangePost = async (req, res) => {
+  const gotExchangePost = await prisma.exchangeableBook.findMany()
+
+  res.send(gotExchangePost);
+}
+
 
 
 

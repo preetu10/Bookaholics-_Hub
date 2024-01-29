@@ -419,6 +419,10 @@ export const transactionBorrow =async (req, res) => {
 
 }
 
+export const getAllBorrowPost = async (req, res) => {
+  const gotBorrowPost = await prisma.borrowableBook.findMany();
 
+  res.send(gotBorrowPost);
+}
 
 

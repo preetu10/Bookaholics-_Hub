@@ -41,6 +41,10 @@ import TransactionBorrow from './pages/adminRoutes/TransactionBorrow';
 import TransactionExchange from './pages/adminRoutes/TransactionExchange';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import AllBuySellPost from './pages/adminRoutes/AllBuySellPost';
+import AllBorrowPost from './pages/adminRoutes/AllBorrowPost';
+import AllExchangePost from './pages/adminRoutes/AllExchangePost';
+
 function App() {
   return (
     <UserProvider>
@@ -88,8 +92,10 @@ function App() {
           <Route path="buy-sell-transaction" element={<TransactionBuySell />} />
           <Route path="borrow-transaction" element={<TransactionBorrow />} />
           <Route path="exchange-transaction" element={<TransactionExchange />} />
-          
-
+          <Route path="all-buy-sell-post" element={<AllBuySellPost />} />
+          <Route path="all-borrow-post" element={<AllBorrowPost />} />
+          <Route path="all-exchange-post" element={<AllExchangePost />} />
+        
       </Route>
 
     </Routes>

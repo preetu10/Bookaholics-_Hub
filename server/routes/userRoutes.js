@@ -7,17 +7,17 @@ import {createUser,findUser, getUser, getAllUser } from "../Controller/UserContr
 import { createSellPost, getBuyPosts, 
         getABook, orderPlace, getOrderRequests, deleteOrderProcess,
         confirmOrderRequest, getMySellPosts, getMyPurchase, 
-        getMySellRecords, editSellPost, transactionBuySell} from "../Controller/BuySellController.js";
+        getMySellRecords, editSellPost, transactionBuySell, getAllBuySellPost} from "../Controller/BuySellController.js";
 
 import {createBorrowPost, getBorrowPosts, 
         getBorrowBook, borrowPlace, getBorrowRequests, deleteBorrowProcess, 
         confirmBorrowRequest, getMyBorrowPosts, getMyBorrow, 
-        getMyLendRecords, editBorrowPost, transactionBorrow } from "../Controller/BorrowController.js";
+        getMyLendRecords, editBorrowPost, transactionBorrow, getAllBorrowPost } from "../Controller/BorrowController.js";
 
 import {createExchangePost, getExchangePosts, 
         getExchangeBook, exchangePlace, getExchangeRequests, deleteExchangeProcess, 
         confirmRequest, getMyExchangePosts, getMyExchange, getMyExchangeRecords, 
-        editExchangePost, transactionExchange } from "../Controller/ExchangeController.js";
+        editExchangePost, transactionExchange, getAllExchangePost } from "../Controller/ExchangeController.js";
 
         
 const router = new Router();
@@ -54,6 +54,9 @@ router.get("/get-all-user",getAllUser);
 router.get("/transaction-buy-sell",transactionBuySell);
 router.get("/transaction-borrow",transactionBorrow);
 router.get("/transaction-exchange",transactionExchange);
+router.get("/all-buy-sell-post", getAllBuySellPost);
+router.get("/all-borrow-post", getAllBorrowPost);
+router.get("/all-exchange-post", getAllExchangePost);
 
 router.delete("/delete-exchange-process/:epId",deleteExchangeProcess);
 router.delete("/delete-borrow-process/:bpId",deleteBorrowProcess);

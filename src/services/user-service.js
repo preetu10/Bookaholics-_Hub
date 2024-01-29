@@ -219,3 +219,17 @@ export const getTransactionExchange = () => {
     return myAxios.get('/api/user/transaction-exchange')
         .then((response) => response.data)
 }
+
+export const getAllBuySellPost = () => {
+    return myAxios.get('/api/user/all-buy-sell-post')
+        .then((response) => response.data)
+}
+
+export const getAllBorrowPost = () => {
+    return myAxios.get('/api/user/all-borrow-post')
+        .then((response) => response.data)
+}
+export const getAllExchangePost = () => {
+    return myAxios.get('/api/user/all-exchange-post')
+        .then((response) => response.data)
+}
