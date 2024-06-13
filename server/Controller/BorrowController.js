@@ -169,23 +169,7 @@ export const deleteBorrowProcess = async(req,res)=>{
         res.status(204).send("Could NOT Delete.");
 }
       
-// export const confirmBorrowRequest = async(req,res)=>{
-//         const bpId=req.params.bpId;
-//         const confirm= await prisma.borrowProcess.update({
-//           where:{
-//             bpId:Number(bpId),
-//           },
-//           data:{
-//             borrState:"Confirmed",
-//           }
-//         });
-//         if(confirm!=null){
-//            res.status(200).send("Process Completed Successfully");
-//         }
-//         else{
-//           res.status(204).send("Process could not be completed.");
-//         }
-// }
+
 
 export const confirmBorrowRequest = async(req,res)=>{
   const bpId=req.params.bpId;
@@ -215,7 +199,7 @@ export const confirmBorrowRequest = async(req,res)=>{
         from: process.env.EMAIL,
         to:getBorrowerEmail.borrowerEmail,
         subject: "Borrow Confirmation Mail",
-        html: '<h1>Thank you for being with BookaholicsHub</h1> <h1> Your have to return the book after 7 days</h2>'
+        html: '<h1>Thank you for being with BookaholicsHub</h1> <h1>  Your have to return the book after 7 days</h2>'
     };
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {

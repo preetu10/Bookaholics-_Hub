@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardText, Badge,Row,Col } from 'reactstrap'
 
 function Post({post={b_title:"This is default post title",b_authorname:"Author",b_edition:"Edition",bid:"Identity code",b_numOfPages:"number",b_price:"unknown",b_description:"This is default post description",image:"coverPage"}}) {
@@ -7,7 +8,7 @@ function Post({post={b_title:"This is default post title",b_authorname:"Author",
     <Card className='border-1 shadow-sm my-3 w-1/2 px-3'
     style={{
       width: '95%',
-      zIndex:"-1"
+      // zIndex:"-1"
     }}>
         <CardBody>
         <Row className='justify-between' >
@@ -32,7 +33,9 @@ function Post({post={b_title:"This is default post title",b_authorname:"Author",
                 {post.b_description}...
             </CardText>
             <div className='text-start'>
-              <Button style={{backgroundColor:'#EE7214',border:'none'}} href={`/user/book-info/${post.sid}`}>Buy</Button>
+              <Link to={`/user/book-info/${post.sid}`}>
+                <Button color='primary' >Buy</Button>
+              </Link>
           </div>
         </Col>
         <Col className='mt-5 pr-4 ml-5'>

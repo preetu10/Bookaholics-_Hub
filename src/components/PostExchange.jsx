@@ -7,7 +7,7 @@ function PostExchange({post={b_title:"This is default post title",b_authorname:"
     <Card className='border-1 shadow-sm my-3 w-1/2 px-3'
     style={{
       width: '95%',
-      zIndex:"-1"
+    
     }}>
         <CardBody>
         <Row className='justify-between' >
